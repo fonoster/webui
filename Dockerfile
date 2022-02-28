@@ -70,7 +70,7 @@ EXPOSE ${PORT}
 # Uncomment the following line in case you want to disable telemetry.
 ENV NEXT_TELEMETRY_DISABLED 1
 
-HEALTHCHECK  --interval=5m --timeout=3s \
+HEALTHCHECK  --interval=5s --timeout=5s --retries=3 \
   CMD wget --no-verbose --tries=1 --spider http://localhost/ || exit 1
 
 CMD sh -c "PORT=\$PORT node_modules/.bin/next start"
