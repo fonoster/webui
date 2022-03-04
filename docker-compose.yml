@@ -46,7 +46,9 @@ services:
       - JWT_SECRET
       - ACCESS_KEY_ID
       - ACCESS_KEY_SECRET
+      - LOGS_TRANSPORT
     networks:
       - fonoster
     volumes:
-      - ${CONFIG}/config:/home/fonoster/.fonoster/config
+      - ${CONFIG}/.env:/app/.env
+      - ${CONFIG}/config:/home/nextjs/.fonoster/config
