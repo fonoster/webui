@@ -235,7 +235,7 @@ table .thead--plans th {
 .pf-spinner-content {
   width: 80px;
   height: 80px;
-  border: 2.5px solid #2A2A2A;
+  border: 2.5px solid #333741;
   border-top-color: #25b37e;
   border-radius: 50%;
   animation: spinner 1s ease-in-out infinite alternate;
@@ -296,4 +296,9 @@ table .thead--plans th {
 
 .cancel {
   @apply bg-cancel text-white !important;
+}
+
+.sbui-input-container input::placeholder {
+  @apply text-gray-400;
+  opacity: 0.7; /* Firefox */
 }

@@ -11,7 +11,7 @@ import { menu } from './menu'
 export const Sidebar = () => {
   return (
     <>
-      <div className="hidden w-28 dark:bg-gray-700 overflow-y-auto md:block">
+      <div className="hidden w-28 dark:bg-gray-500 overflow-y-auto md:block">
         <div className="w-full py-6 flex flex-col items-center">
           <div className="flex-shrink-0 flex items-center">
             <Logo />
