@@ -2,7 +2,7 @@ import type { ListProjectsResponse } from '@fonoster/projects/dist/client/types'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 
-import { API } from '@/mods/shared/lib/api'
+import { API } from '@/mods/shared/libs/api'
 
 export const useProjects = (queryKey = 'projects') => {
   const { data, isLoading, isSuccess } = useQuery<ListProjectsResponse>(

@@ -8,7 +8,7 @@ import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
-import { getQueryClient } from '@/mods/shared/lib/queryClient'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Spinner, Text, Title } from '@/ui'
 
 import { useDeleteSecret } from '../../hooks/useDeleteSecret'
@@ -84,6 +84,8 @@ export const SecretsBoard: AppPage = () => {
                 size="small"
                 type="link"
                 onClick={() => onOpen(secret.name)}
+                data-desc={`Secret name: ${secret.name}`}
+                data-intent="Delete Secret"
               >
                 Delete
               </Button>

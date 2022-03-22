@@ -62,6 +62,7 @@ export const Panel: React.FC<Props> = ({
                           type="button"
                           className="bg-white bg-gray-700 rounded-md text-gray-300 focus:outline-none"
                           onClick={close}
+                          data-intent={title}
                         >
                           <span className="sr-only">Close panel</span>
                           <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -82,12 +83,17 @@ export const Panel: React.FC<Props> = ({
                     <Button
                       type="secondary"
                       onClick={close}
+                      data-intent={title}
                       {...{
                         ...cancelButtonProps,
                         children: cancelButtonProps?.children ?? 'Cancel',
                       }}
                     />
-                    <Button className="ml-4" {...saveButtonProps} />
+                    <Button
+                      className="ml-4"
+                      data-intent={title}
+                      {...saveButtonProps}
+                    />
                   </div>
                 )}
               </div>

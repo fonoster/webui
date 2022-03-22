@@ -4,7 +4,7 @@ import type {
 } from '@fonoster/apps/dist/client/types'
 import { useMutation, useQueryClient } from 'react-query'
 
-import { API } from '@/mods/shared/lib/api'
+import { API } from '@/mods/shared/libs/api'
 
 export const useCreateApp = () => {
   const queryClient = useQueryClient()

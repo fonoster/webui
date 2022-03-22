@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query'
 
-import { API } from '@/mods/shared/lib/api'
+import { API } from '@/mods/shared/libs/api'
 
 export const useDeleteSecret = () => {
   const queryClient = useQueryClient()

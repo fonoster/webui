@@ -1,7 +1,7 @@
 import type { SearchEventsResponse } from '@fonoster/monitor/dist/client/types'
 import { useQuery } from 'react-query'
 
-import { API } from '@/mods/shared/lib/api'
+import { API } from '@/mods/shared/libs/api'
 
 export const useLogs = (
   params: { time: string; eventType: string },
