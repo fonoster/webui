@@ -3,17 +3,18 @@ import { ZoneContextManager } from '@opentelemetry/context-zone'
 import { registerInstrumentations } from '@opentelemetry/instrumentation'
 import {
   BatchSpanProcessor,
-  ConsoleSpanExporter,
   SimpleSpanProcessor,
 } from '@opentelemetry/sdk-trace-base'
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web'
+
+import { SentrySpanExporter } from './SentrySpanExporter'
 
 const provider = new WebTracerProvider()
 
 const processor =
   process.env.NODE_ENV === 'production'
-    ? new BatchSpanProcessor(new ConsoleSpanExporter())
-    : new SimpleSpanProcessor(new ConsoleSpanExporter())
+    ? new BatchSpanProcessor(new SentrySpanExporter())
+    : new SimpleSpanProcessor(new SentrySpanExporter())
 
 provider.addSpanProcessor(processor)
 
