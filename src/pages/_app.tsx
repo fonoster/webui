@@ -1,4 +1,5 @@
 import '../styles/styles.css'
+import '@/mods/shared/libs/telemetry'
 
 import { SessionProvider } from 'next-auth/react'
 import { NextQueryParamProvider } from 'next-query-params'
@@ -12,7 +13,7 @@ import { Authenticated } from '@/mods/auth/components/Authenticated'
 import { Unauthenticated } from '@/mods/auth/components/Unauthenticated'
 import { Layout } from '@/mods/shared/components/layouts'
 import { Progress } from '@/mods/shared/components/Progress'
-import { getQueryClient } from '@/mods/shared/lib/queryClient'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Meta } from '@/ui'
 
 const Application = ({

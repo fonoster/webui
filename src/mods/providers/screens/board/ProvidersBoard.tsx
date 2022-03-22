@@ -7,7 +7,7 @@ import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
-import { getQueryClient } from '@/mods/shared/lib/queryClient'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Spinner } from '@/ui'
 
 import { useCreationEditingProvider } from '../../components/creation-editing'
@@ -112,10 +112,17 @@ export const ProvidersBoard: AppPage = () => {
                   type="secondary"
                   className="mr-4"
                   onClick={() => onOpen(provider.ref)}
+                  data-desc={`Provider ID: ${provider.ref}`}
+                  data-intent="Delete Provider"
                 >
                   Delete
                 </Button>
-                <Button size="small" onClick={() => openEditing(provider)}>
+                <Button
+                  size="small"
+                  data-desc={`Provider ID: ${provider.ref}`}
+                  data-intent="Edit Provider"
+                  onClick={() => openEditing(provider)}
+                >
                   Edit
                 </Button>
               </td>

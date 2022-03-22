@@ -73,10 +73,20 @@ export const DeleteResource: React.FC<DeleteResourceProps> = ({
               </div>
             </div>
             <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-              <Button onClick={onDelete} loading={isLoading} className="ml-4">
+              <Button
+                onClick={onDelete}
+                loading={isLoading}
+                className="ml-4"
+                data-intent={title}
+              >
                 Delete
               </Button>
-              <Button type="secondary" onClick={onClose} disabled={isLoading}>
+              <Button
+                type="secondary"
+                onClick={onClose}
+                disabled={isLoading}
+                data-intent={title}
+              >
                 Cancel
               </Button>
             </div>

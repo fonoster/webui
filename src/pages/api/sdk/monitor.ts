@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { getServerCurrentProject } from '@/mods/auth/lib/getUserLogged'
 import { TIMES, validateTimeFilter } from '@/mods/shared/constants/filters'
-import { requestHandler } from '@/mods/shared/lib/api'
+import { requestHandler } from '@/mods/shared/libs/api'
 
 export default async function handle(
   req: NextApiRequest,

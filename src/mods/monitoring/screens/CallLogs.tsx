@@ -6,7 +6,7 @@ import { dehydrate } from 'react-query'
 import type { AppPage } from '@/@types'
 import { TIMES } from '@/mods/shared/constants/filters'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
-import { getQueryClient } from '@/mods/shared/lib/queryClient'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Badge, Spinner } from '@/ui'
 
 import { LogsHeader } from '../components/LogsHeader'

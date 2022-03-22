@@ -1,7 +1,7 @@
 import type { Agent } from '@fonoster/agents/dist/client/types'
 import { useQuery } from 'react-query'
 
-import { API } from '@/mods/shared/lib/api'
+import { API } from '@/mods/shared/libs/api'
 
 export const useAgents = (queryKey = 'agents') => {
   const { data, isLoading, isSuccess } = useQuery<{

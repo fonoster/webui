@@ -32,7 +32,11 @@ export const SignIn: NextPage = () => {
           customizations.
         </Text>
 
-        <Button loading={isLoading} onClick={signInGithub}>
+        <Button
+          loading={isLoading}
+          onClick={signInGithub}
+          data-intent="Sign in to Fonoster with Github account"
+        >
           Sign in with Github
         </Button>
 

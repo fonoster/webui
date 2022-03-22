@@ -7,7 +7,7 @@ import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
-import { getQueryClient } from '@/mods/shared/lib/queryClient'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Spinner } from '@/ui'
 
 import { useCreationEditingApp } from '../../components/creation-editing'
@@ -112,10 +112,17 @@ export const AppsBoard: AppPage = () => {
                   type="secondary"
                   className="mr-4"
                   onClick={() => onOpen(app.ref)}
+                  data-desc={`Application ID: ${app.ref}`}
+                  data-intent="Delete application"
                 >
                   Delete
                 </Button>
-                <Button size="small" onClick={() => openEditing(app as any)}>
+                <Button
+                  size="small"
+                  data-desc={`Application ID: ${app.ref}`}
+                  data-intent="Edit application"
+                  onClick={() => openEditing(app as any)}
+                >
                   Edit
                 </Button>
               </td>

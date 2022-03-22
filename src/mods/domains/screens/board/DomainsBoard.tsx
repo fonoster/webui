@@ -7,7 +7,7 @@ import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
-import { getQueryClient } from '@/mods/shared/lib/queryClient'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Spinner } from '@/ui'
 
 import { useCreationEditingDomain } from '../../components/creation-editing'
@@ -112,10 +112,17 @@ export const DomainsBoard: AppPage = () => {
                   type="secondary"
                   className="mr-4"
                   onClick={() => onOpen(domain.ref)}
+                  data-desc={`Domain ID: ${domain.ref}`}
+                  data-intent="Edit application"
                 >
                   Delete
                 </Button>
-                <Button size="small" onClick={() => openEditing(domain)}>
+                <Button
+                  size="small"
+                  data-desc={`Domain ID: ${domain.ref}`}
+                  data-intent="Edit Domain"
+                  onClick={() => openEditing(domain)}
+                >
                   Edit
                 </Button>
               </td>

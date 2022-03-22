@@ -8,7 +8,7 @@ import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
-import { getQueryClient } from '@/mods/shared/lib/queryClient'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Spinner } from '@/ui'
 
 import { useCreationEditingNumber } from '../../components/creation-editing'
@@ -128,6 +128,8 @@ export const NumbersBoard: AppPage = () => {
                   type="secondary"
                   className="mr-4"
                   onClick={() => onOpen(num.ref)}
+                  data-desc={`Number ID: ${num.ref}`}
+                  data-intent="Delete Number"
                 >
                   Delete
                 </Button>
@@ -135,6 +137,8 @@ export const NumbersBoard: AppPage = () => {
                   size="small"
                   type="secondary"
                   onClick={() => openEditing(num)}
+                  data-desc={`Number ID: ${num.ref}`}
+                  data-intent="Edit Number"
                 >
                   Edit
                 </Button>
@@ -143,6 +147,8 @@ export const NumbersBoard: AppPage = () => {
                   className="ml-4"
                   icon={<PhoneIcon className="h-4 w-4" aria-hidden="true" />}
                   onClick={() => onTestCall(num.e164Number)}
+                  data-desc={`Number ID: ${num.ref}`}
+                  data-intent={`Test call to ${num.e164Number}`}
                 >
                   Test Call
                 </Button>

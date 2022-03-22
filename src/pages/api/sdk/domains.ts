@@ -2,7 +2,7 @@ import Fonoster from '@fonoster/sdk'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { getServerCurrentProject } from '@/mods/auth/lib/getUserLogged'
-import { defaultPagination, requestHandler } from '@/mods/shared/lib/api'
+import { defaultPagination, requestHandler } from '@/mods/shared/libs/api'
 
 export default async function handle(
   req: NextApiRequest,

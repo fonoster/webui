@@ -25,7 +25,11 @@ export const CurrentProjectSelector = () => {
         {({ open }) => (
           <>
             <div className="w-full lg:w-2/5 md:w-1/2 max-w-xs relative">
-              <Listbox.Button className="bg-gray-600 relative w-full border border-gray-700 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm">
+              <Listbox.Button
+                data-desc={`Project ID: ${currentProject?.ref}`}
+                data-intent="Change current project"
+                className="bg-gray-600 relative w-full border border-gray-700 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm"
+              >
                 <span className="block truncate text-gray-300">
                   {currentProject?.name}
                 </span>
@@ -55,6 +59,8 @@ export const CurrentProjectSelector = () => {
                         )
                       }
                       value={item}
+                      data-desc={`Project ID: ${item.ref}`}
+                      data-intent="Change current project"
                     >
                       {({ selected, active }) => (
                         <>
@@ -65,6 +71,8 @@ export const CurrentProjectSelector = () => {
                                 : 'font-normal',
                               'block truncate'
                             )}
+                            data-desc={`Project ID: ${item.ref}`}
+                            data-intent="Change current project"
                           >
                             {item.name}
                           </span>
@@ -75,6 +83,8 @@ export const CurrentProjectSelector = () => {
                                 active ? 'text-white' : 'text-primary',
                                 'absolute inset-y-0 right-0 flex items-center pr-4'
                               )}
+                              data-desc={`Project ID: ${item.ref}`}
+                              data-intent="Change current project"
                             >
                               <CheckIcon
                                 className="h-5 w-5"
