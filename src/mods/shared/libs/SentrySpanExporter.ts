@@ -68,8 +68,8 @@ export class SentrySpanExporter implements SpanExporter {
 
       Sentry.captureEvent({
         message:
-          (event.attributes['actionIntent'] as string) ??
-          (event.attributes['elementText'] as string) ??
+          (event.attributes['actionIntent'] as string) ||
+          (event.attributes['elementText'] as string) ||
           'New Event from Fonoster Console',
         environment: process.env.NODE_ENV,
         extra: {
