@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-  HOST: "console.fonoster.io"
-  NEXT_PUBLIC_SENTRY_DSN: "https://dafe71c4157a468499ae3146fdb5476a@o1175061.ingest.sentry.io/6271647"
+  HOST: console.fonoster.io"
+  NEXT_PUBLIC_SENTRY_DSN: https://dafe71c4157a468499ae3146fdb5476a@o1175061.ingest.sentry.io/6271647
   
 jobs:
 
