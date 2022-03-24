@@ -7,9 +7,11 @@ import { ReadableSpan, SpanExporter } from '@opentelemetry/sdk-trace-base'
 import * as Sentry from '@sentry/browser'
 import { BrowserTracing } from '@sentry/tracing'
 
+import { config } from '../constants/config'
+
 Sentry.init({
   environment: process.env.NODE_ENV,
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  dsn: config.SENTRY_DSN,
   integrations: [new BrowserTracing()],
   tracesSampleRate: 1.0,
 })
