@@ -72,6 +72,7 @@ export class SentrySpanExporter implements SpanExporter {
           (event.attributes['elementText'] as string) ||
           'New Event from Fonoster Console',
         environment: process.env.NODE_ENV,
+        level: Sentry.Severity.Info,
         extra: {
           ...event,
           attributes: undefined,
