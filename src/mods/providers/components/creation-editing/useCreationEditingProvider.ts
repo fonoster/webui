@@ -10,7 +10,7 @@ const useStore = createPanelStore<Partial<Provider>>({
   secret: '',
   host: '',
   transport: '',
-  expires: 3600,
+  expires: 600,
 })
 
 export const useCreationEditingProvider = () =>
