@@ -38,7 +38,7 @@ export const NumbersBoard: AppPage = () => {
       username: 'testacct',
       secret: 'changeit',
       audioElementId: 'remoteAudio',
-      server: 'wss://sip.fonoster.io:5063',
+      server: 'wss://api.fonoster.io:5063',
     }
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
