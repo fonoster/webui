@@ -129,7 +129,7 @@ export const CreationEditingApp: React.FC = () => {
               <Select
                 className={hasSecrets ? 'mb-4' : 'mb-0'}
                 label="Voice name"
-                disabled={!hasSecrets || isLoading}
+                disabled={isLoading}
                 error={
                   errors?.speechConfig?.voice &&
                   'You must enter a voice for your Application.'
