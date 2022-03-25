@@ -25,7 +25,17 @@ export const CreationEditingApp: React.FC = () => {
   } = useForm({ defaultValues })
 
   useEffect(() => {
-    reset(isEdit ? defaultValues : {})
+    reset(
+      isEdit
+        ? defaultValues
+        : {
+            activationTimeout: 10_000,
+            interactionTimeout: 10_000,
+            transferConfig: {
+              message: 'Please wait while we transfer you',
+            },
+          }
+    )
   }, [isEdit, defaultValues, reset])
 
   const { mutate: create, isLoading: isCreateLoading } = useCreateApp()
@@ -122,36 +132,6 @@ export const CreationEditingApp: React.FC = () => {
           />
 
           <Controller
-            name="speechConfig.voice"
-            control={control}
-            rules={{ required: true }}
-            render={({ field: { name, onBlur, onChange, value } }) => (
-              <Select
-                className={hasSecrets ? 'mb-4' : 'mb-0'}
-                label="Voice name"
-                disabled={isLoading}
-                error={
-                  errors?.speechConfig?.voice &&
-                  'You must enter a voice for your Application.'
-                }
-                {...{
-                  name,
-                  onBlur,
-                  onChange,
-                  value,
-                }}
-              >
-                <Select.Option value="">Choose a voice name</Select.Option>
-                {voices.map(voice => (
-                  <Select.Option key={voice} value={voice}>
-                    {voice}
-                  </Select.Option>
-                ))}
-              </Select>
-            )}
-          />
-
-          <Controller
             name="speechConfig.secretName"
             control={control}
             rules={{ required: true }}
@@ -197,6 +177,36 @@ export const CreationEditingApp: React.FC = () => {
               Add Secret
             </Button>
           )}
+
+          <Controller
+            name="speechConfig.voice"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { name, onBlur, onChange, value } }) => (
+              <Select
+                className={hasSecrets ? 'mb-4' : 'mb-0'}
+                label="Voice name"
+                disabled={isLoading}
+                error={
+                  errors?.speechConfig?.voice &&
+                  'You must enter a voice for your Application.'
+                }
+                {...{
+                  name,
+                  onBlur,
+                  onChange,
+                  value,
+                }}
+              >
+                <Select.Option value="">Choose a voice name</Select.Option>
+                {voices.map(voice => (
+                  <Select.Option key={voice} value={voice}>
+                    {voice}
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
+          />
 
           <Controller
             name="intentsEngineConfig.welcomeIntentId"
@@ -365,7 +375,6 @@ export const CreationEditingApp: React.FC = () => {
                   <Input
                     className="mb-4"
                     label="Initial DTMF"
-                    labelOptional="(optional)"
                     placeholder="It’s a string that allows 1234567890#*"
                     disabled={isLoading}
                     error={errors?.initialDtmf && 'You must enter valid DTMF'}

@@ -20,7 +20,14 @@ export const CreationEditingProvider: React.FC = () => {
   } = useForm<Provider>({ defaultValues })
 
   useEffect(() => {
-    reset(isEdit ? defaultValues : {})
+    reset(
+      isEdit
+        ? defaultValues
+        : {
+            expires: 600,
+            transport: 'tcp',
+          }
+    )
   }, [isEdit, defaultValues, reset])
 
   const { mutate: create, isLoading: isCreateLoading } = useCreateProvider()

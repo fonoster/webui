@@ -122,7 +122,7 @@ export const NumbersBoard: AppPage = () => {
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                 {num.ingressInfo?.webhook}
               </td>
-              <td className="flex items-center px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <td className="flex items-center px-6 py-4 whitespace-nowrap text-right text-sm font-medium justify-end">
                 <Button
                   size="small"
                   type="secondary"

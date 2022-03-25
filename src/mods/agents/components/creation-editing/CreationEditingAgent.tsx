@@ -22,7 +22,7 @@ export const CreationEditingAgent = () => {
   } = useForm<Agent>({ defaultValues })
 
   useEffect(() => {
-    reset(isEdit ? defaultValues : {})
+    reset(isEdit ? defaultValues : { privacy: 'Private' })
   }, [isEdit, defaultValues, reset])
 
   const { mutate: create, isLoading: isCreateLoading } = useCreateAgent()

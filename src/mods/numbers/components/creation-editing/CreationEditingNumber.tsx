@@ -147,32 +147,34 @@ export const CreationEditingNumber = () => {
                   Add Provider
                 </Button>
               )}
-
-              <Controller
-                name="e164Number"
-                control={control}
-                rules={{ required: true }}
-                render={({ field: { name, onBlur, onChange, value } }) => (
-                  <Input
-                    className="mb-4"
-                    label="E.164 Number"
-                    placeholder="Type a number (e.g. +17853178070)"
-                    disabled={isLoading}
-                    error={
-                      errors?.e164Number &&
-                      'You must enter a Number in E.164 format.'
-                    }
-                    {...{
-                      name,
-                      onBlur,
-                      onChange,
-                      value,
-                    }}
-                  />
-                )}
-              />
             </>
           )}
+
+          <Controller
+            name="e164Number"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { name, onBlur, onChange, value } }) => (
+              <Input
+                className="mb-4"
+                label="E.164 Number"
+                placeholder="Type a number (e.g. +17853178070)"
+                disabled={isLoading}
+                readOnly={isEdit}
+                labelOptional={isEdit ? '(readonly)' : undefined}
+                error={
+                  errors?.e164Number &&
+                  'You must enter a Number in E.164 format.'
+                }
+                {...{
+                  name,
+                  onBlur,
+                  onChange,
+                  value,
+                }}
+              />
+            )}
+          />
 
           <Controller
             name="ingressInfo.webhook"

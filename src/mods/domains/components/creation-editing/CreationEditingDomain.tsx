@@ -21,7 +21,13 @@ export const CreationEditingDomain = () => {
   } = useForm<Domain>({ defaultValues })
 
   useEffect(() => {
-    reset(isEdit ? defaultValues : {})
+    reset(
+      isEdit
+        ? defaultValues
+        : {
+            egressRule: '.*',
+          }
+    )
   }, [isEdit, defaultValues, reset])
 
   const { mutate: create, isLoading: isCreateLoading } = useCreateDomain()
@@ -122,17 +128,21 @@ export const CreationEditingDomain = () => {
                 label="Your Domain URI"
                 placeholder="Type a URI (e.g acme)"
                 disabled={isLoading}
-                labelOptional={isEdit ? '(Readonly)' : ''}
+                labelOptional={isEdit ? '(readonly)' : ''}
                 readOnly={isEdit}
-                actions={[
-                  <Text
-                    options={{ small: true }}
-                    className="m-0 pr-4"
-                    key="domain"
-                  >
-                    .fonoster.io
-                  </Text>,
-                ]}
+                actions={
+                  !isEdit
+                    ? [
+                        <Text
+                          options={{ small: true }}
+                          className="m-0 pr-4"
+                          key="domain"
+                        >
+                          .fonoster.io
+                        </Text>,
+                      ]
+                    : []
+                }
                 copy={isEdit}
                 error={
                   errors?.domainUri && 'You must enter a URI for your Domain.'
