@@ -94,7 +94,7 @@ export const SignInIcon: React.FC<React.HTMLAttributes<SVGAElement>> = ({
             d="M701.809,225.767v74.075H813.563"
             transform="translate(-578.793 -133.267)"
             fill="none"
-            stroke="#25b37e"
+            stroke="#4ab96d"
             strokeWidth="3"
           />
           <g
