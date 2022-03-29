@@ -20,9 +20,19 @@ export const Text: React.FC<Paragraph> = ({ className, options, ...props }) => (
   </Typography.Text>
 )
 
-export const WhiteText: React.FC<Paragraph> = props => (
-  <Typography.Text>
+export const WhiteText: React.FC<Paragraph> = ({ options, ...props }) => (
+  <Typography.Text {...options}>
     <p {...props} />
+  </Typography.Text>
+)
+
+export const Label: React.FC<Paragraph> = ({
+  className,
+  options,
+  ...props
+}) => (
+  <Typography.Text {...options}>
+    <p className={classes('sbui-formlayout__label', className)} {...props} />
   </Typography.Text>
 )
 

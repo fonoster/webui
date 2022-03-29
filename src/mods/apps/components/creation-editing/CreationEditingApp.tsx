@@ -1,12 +1,23 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { useCreationEditingSecret } from '@/mods/secrets/components/creation-editing'
 import { useSecrets } from '@/mods/secrets/hooks/useSecrets'
 import { Notifier } from '@/mods/shared/components/Notification'
-import { voices } from '@/mods/shared/constants/voices'
 import { wait } from '@/mods/shared/helpers/wait'
-import { Button, Checkbox, Input, Panel, Select, Spinner } from '@/ui'
+import { useVoices } from '@/mods/shared/hooks/useVoices'
+import {
+  Button,
+  Checkbox,
+  Input,
+  Label,
+  Panel,
+  Radio,
+  Select,
+  Spinner,
+  Text,
+} from '@/ui'
 
 import { useCreateApp } from '../../hooks/useCreateApp'
 import { useEditApp } from '../../hooks/useEditApp'
@@ -16,12 +27,22 @@ export const CreationEditingApp: React.FC = () => {
   const [showMoreOptions, setShowMoreOptions] = useState(false)
   const [intensConfigType, setIntentsConfigType] = useState('')
 
+  const {
+    voices,
+    total,
+    fetchMoreVoices,
+    hasMoreVoices,
+    getAudio,
+    resetVoices,
+  } = useVoices()
+
   const { isOpen, isEdit, defaultValues, close } = useCreationEditingApp()
   const {
     reset,
     control,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm({ defaultValues })
 
   useEffect(() => {
@@ -54,7 +75,8 @@ export const CreationEditingApp: React.FC = () => {
     setIntentsConfigType('')
     close()
     wait(reset)
-  }, [close, reset])
+    wait(resetVoices)
+  }, [close, reset, resetVoices])
 
   const onSave = useCallback(
     application => {
@@ -178,15 +200,24 @@ export const CreationEditingApp: React.FC = () => {
             </Button>
           )}
 
+          <Label>
+            {isEdit ? (
+              <>
+                The current voice is:{' '}
+                <strong>{watch('speechConfig.voice')}</strong>
+              </>
+            ) : (
+              'Voice name '
+            )}
+          </Label>
+
           <Controller
             name="speechConfig.voice"
             control={control}
             rules={{ required: true }}
             render={({ field: { name, onBlur, onChange, value } }) => (
-              <Select
-                className={hasSecrets ? 'mb-4' : 'mb-0'}
-                label="Voice name"
-                disabled={isLoading}
+              <Radio.Group
+                className="mb-4 sbui-input"
                 error={
                   errors?.speechConfig?.voice &&
                   'You must enter a voice for your Application.'
@@ -198,13 +229,36 @@ export const CreationEditingApp: React.FC = () => {
                   value,
                 }}
               >
-                <Select.Option value="">Choose a voice name</Select.Option>
-                {voices.map(voice => (
-                  <Select.Option key={voice} value={voice}>
-                    {voice}
-                  </Select.Option>
-                ))}
-              </Select>
+                <InfiniteScroll
+                  dataLength={total}
+                  next={fetchMoreVoices}
+                  hasMore={hasMoreVoices}
+                  loader={<Text>Loading...</Text>}
+                  height={300}
+                >
+                  {voices.map(voice => (
+                    <div
+                      className="flex items-center justify-between p-2 border-b border-gray-500"
+                      key={voice}
+                    >
+                      <Radio
+                        label={voice}
+                        value={voice}
+                        checked={value === voice}
+                        disabled={isLoading}
+                      />
+                      <audio
+                        controls
+                        preload="none"
+                        style={{ maxWidth: '142px' }}
+                      >
+                        <source {...getAudio(voice)} />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </div>
+                  ))}
+                </InfiniteScroll>
+              </Radio.Group>
             )}
           />
 
