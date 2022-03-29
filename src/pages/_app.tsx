@@ -3,7 +3,7 @@ import '@/mods/shared/libs/telemetry'
 
 import { SessionProvider } from 'next-auth/react'
 import { NextQueryParamProvider } from 'next-query-params'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Hydrate, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { injectStyle } from 'react-toastify/dist/inject-style'
@@ -20,7 +20,7 @@ const Application = ({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) => {
-  const [queryClient] = useState(() => getQueryClient())
+  const { current: queryClient } = React.useRef(getQueryClient())
 
   useEffect(() => {
     injectStyle()

@@ -28,13 +28,15 @@ export const useCurrentProject = () => {
   const changeCurrentProject = useCallback(
     (project: Project | null) => {
       setProjectRef(project?.ref)
-      setCurrentProject(project)
+      setCurrentProject(prevProject => {
+        project
+          ? currentProjectStorage.set(JSON.stringify(project))
+          : currentProjectStorage.destroy()
 
-      project
-        ? currentProjectStorage.set(JSON.stringify(project))
-        : currentProjectStorage.destroy()
+        if (prevProject?.ref !== project?.ref) queryClient.invalidateQueries()
 
-      queryClient.invalidateQueries()
+        return project
+      })
     },
     [setProjectRef, queryClient]
   )
