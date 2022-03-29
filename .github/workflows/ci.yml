@@ -8,8 +8,7 @@ on:
 
 env:
   HOST: "console.fonoster.io"
-  NEXT_PUBLIC_SENTRY_DSN: "https://dafe71c4157a468499ae3146fdb5476a@o1175061.ingest.sentry.io/6271647"
-  
+
 jobs:
 
   build_and_push:
@@ -19,11 +18,11 @@ jobs:
         uses: actions/checkout@v1
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::$(node -e "console.log(require('./package.json').version)")        
+        run: echo ::set-output name=VERSION::$(node -e "console.log(require('./package.json').version)")
       - name: Publish
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
-          DOCKER_BUILDKIT: 1   
+          DOCKER_BUILDKIT: 1
         with:
           name: fonoster/webui
           username: ${{ secrets.DOCKER_HUB_USERNAME }}

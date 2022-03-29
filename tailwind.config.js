@@ -38,7 +38,7 @@ module.exports = {
         'accent-7': '#333',
         success: '#0070f3',
         cyan: '#79FFE1',
-        primary: '#25b37e',
+        primary: '#4ab96d',
         cancel: '#e30d4d',
         brand: {
           100: '#82dab0',
