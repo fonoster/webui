@@ -1,4 +1,4 @@
-import { PhoneIcon } from '@heroicons/react/outline'
+import { PhoneIcon, StatusOfflineIcon } from '@heroicons/react/outline'
 import type { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 import { useCallback, useLayoutEffect, useState } from 'react'
@@ -8,6 +8,7 @@ import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
+import { CallSessionState } from '@/mods/shared/libs/CallSessionState'
 import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Spinner } from '@/ui'
 
@@ -25,6 +26,8 @@ export const NumbersBoard: AppPage = () => {
 
   const { openEditing } = useCreationEditingNumber()
 
+  const [wphone, setPhoneInstance] = useState<any>(null)
+
   useLayoutEffect(() => {
     setTitle('SIP Network / Numbers')
   }, [setTitle])
@@ -32,26 +35,56 @@ export const NumbersBoard: AppPage = () => {
   const onTestCall = useCallback(async (e164Number: string) => {
     Notifier.info('Test Call in progress...', { closeButton: false })
 
-    const config = {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const WPhone = require('wphone').default
+
+    const phone = new WPhone({
       displayName: 'ACCT Test',
       domain: 'test.sip.fonoster.io',
       username: 'testacct',
       secret: 'changeit',
       audioElementId: 'remoteAudio',
       server: 'wss://api.fonoster.io:5063',
-    }
+    })
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const WPhone = require('wphone').default
+    if (!phone) return
 
-    const wPhone = new WPhone(config)
+    setPhoneInstance(phone)
 
-    await wPhone.connect()
-    await wPhone.call({
+    await phone.connect()
+    await phone.call({
       targetAOR: 'sip:voice@default',
       extraHeaders: [`X-DID-Info: ${e164Number}`],
     })
+
+    phone.inviter.stateChange.addListener((state: CallSessionState) => {
+      if (state === CallSessionState.TERMINATED) {
+        phone?.disconnect()
+
+        setPhoneInstance(null)
+      }
+    })
   }, [])
+
+  const onHangup = useCallback(() => {
+    if (wphone?.isConnected()) {
+      const isEstablishing = [
+        CallSessionState.INITIAL,
+        CallSessionState.ESTABLISHING,
+      ].includes(wphone.inviter.state)
+
+      if (isEstablishing)
+        return Notifier.warning('Call not established, cannot hangup')
+
+      wphone.inviter.state === CallSessionState.TERMINATED
+        ? wphone.inviter.cancel()
+        : wphone?.hangup()
+
+      wphone?.disconnect()
+
+      setPhoneInstance(null)
+    }
+  }, [wphone])
 
   const onOpen = useCallback((refId: string) => {
     setDeleteModalOpen(true)
@@ -145,12 +178,24 @@ export const NumbersBoard: AppPage = () => {
                 <Button
                   size="small"
                   className="ml-4"
-                  icon={<PhoneIcon className="h-4 w-4" aria-hidden="true" />}
-                  onClick={() => onTestCall(num.e164Number)}
+                  icon={
+                    !wphone ? (
+                      <PhoneIcon className="h-4 w-4" aria-hidden="true" />
+                    ) : (
+                      <StatusOfflineIcon
+                        className="h-4 w-4"
+                        aria-hidden="true"
+                      />
+                    )
+                  }
+                  onClick={() =>
+                    wphone ? onHangup() : onTestCall(num.e164Number)
+                  }
+                  type={wphone ? 'outline' : 'primary'}
                   data-desc={`Number ID: ${num.ref}`}
                   data-intent={`Test call to ${num.e164Number}`}
                 >
-                  Test Call
+                  {wphone ? 'Hangup call' : 'Test Call'}
                 </Button>
               </td>
             </tr>
