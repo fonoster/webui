@@ -84,7 +84,7 @@ export const SIPLogsBoard: AppPage = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white truncate max-w-[132px]">
                       {event.ref}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 truncate max-w-[132px]">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 truncate">
                       {new Date(event.timestamp).toUTCString()}
                     </td>
                     <td className="px-6 py-4 whitespace-normal text-sm text-gray-300 truncate max-w-[360px] min-w-[320px]">
@@ -93,7 +93,7 @@ export const SIPLogsBoard: AppPage = () => {
                     <td className="px-6 py-4 whitespace-normal text-sm text-gray-300 truncate max-w-[560px] min-w-[400px]">
                       <Json
                         data={event.body}
-                        bg={idx % 2 === 0 ? '#181818' : '#1f1f1f'}
+                        bg={idx % 2 === 0 ? '#27292f' : '#2b2e35'}
                       />
                     </td>
                   </tr>

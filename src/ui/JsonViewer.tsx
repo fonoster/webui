@@ -5,7 +5,7 @@ const View = dynamic(() => import('react-json-view'), { ssr: false })
 export const Json: React.FC<{
   data: Record<string, unknown>
   bg?: string
-}> = ({ data, bg = '#181818' }) => (
+}> = ({ data, bg = '#27292f' }) => (
   <View
     src={data}
     enableClipboard={false}

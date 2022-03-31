@@ -102,7 +102,7 @@ export const CallLogsBoard: AppPage = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white truncate max-w-[132px]">
                       {event.ref}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 truncate max-w-[132px] min-w-[260px]">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300 truncate min-w-[260px]">
                       {new Date(event.timestamp).toUTCString()}
                     </td>
                     <td className="px-6 py-4 whitespace-normal text-sm text-gray-300 truncate max-w-[360px] min-w-[320px]">
