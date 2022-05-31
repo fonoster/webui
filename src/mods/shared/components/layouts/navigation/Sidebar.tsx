@@ -18,7 +18,10 @@ export const Sidebar = () => {
 
   return (
     <>
-      <div className="hidden w-60 dark:bg-gray-500 overflow-visible md:block">
+      <div
+        className="hidden w-60 dark:bg-gray-500 overflow-visible md:block border-r"
+        style={{ borderColor: '#4F5358' }}
+      >
         <div className="w-full py-6 flex flex-col items-center">
           <div className="w-full px-4 flex-shrink-0 flex justify-between">
             <Logo />

@@ -86,7 +86,7 @@ export const SecretsBoard: AppPage = () => {
                   </a>
                 </Text>
               </div>
-              <div>
+              <div className="hidden lg:block">
                 <Button
                   type="text"
                   className={classes(

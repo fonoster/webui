@@ -47,8 +47,8 @@ export const InsideDocs: React.FC<InsideDocsProps> = ({
       show={show}
     >
       <aside
-        className="hidden p-6 w-[29rem] overflow-x-hidden overflow-y-auto lg:block"
-        style={{ background: '#2E3138' }}
+        className="hidden p-6 w-[29rem] overflow-x-hidden overflow-y-auto lg:block border-l"
+        style={{ background: '#2E3138', borderColor: '#4F5358' }}
       >
         <Title level={3} className="mb-6">
           {title}
