@@ -8,6 +8,7 @@ import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
 import { InsideDocs } from '@/mods/shared/components/InsideDocs'
 import { Notifier } from '@/mods/shared/components/Notification'
+import { classes } from '@/mods/shared/helpers/classes'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
 import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Spinner, Text, Title } from '@/ui'
@@ -34,14 +35,16 @@ providers.createProvider(request)
 
 export const SecretsBoard: AppPage = () => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [isInsideDocsOpen, setInsideDocsOpen] = useState(true)
   const { mutate, isLoading } = useDeleteSecret()
   const [deleteRef, setDeleteRef] = useState('')
-  const { setTitle } = useTitle()
+  const { setTitle, removeGaps } = useTitle()
   const { secrets, isSuccess } = useSecrets()
 
   useLayoutEffect(() => {
     setTitle('Secrets Management')
-  }, [setTitle])
+    removeGaps()
+  }, [setTitle, removeGaps])
 
   const onOpen = useCallback((refId: string) => {
     setDeleteModalOpen(true)
@@ -63,24 +66,40 @@ export const SecretsBoard: AppPage = () => {
   return isSuccess ? (
     <>
       <div className="flex-1 flex items-stretch overflow-hidden">
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto py-6 pl-6">
           {/* Primary column */}
           <section className="min-w-0 pr-6 flex-1 h-full flex flex-col lg:order-last">
-            <div className="mb-4 lg:w-4/6">
-              <Title level={3}>Safeguard your credentials in a vault.</Title>
-              <Text className="whitespace-normal">
-                Secrets are encrypted variables that you can you use in your
-                Voice Applications. Your secrets are only available for use
-                within the Project.{' '}
-                <a
-                  className="term"
-                  href="https://learn.fonoster.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
+            <div className="w-full flex items-center justify-between mb-4">
+              <div className="lg:w-4/6">
+                <Title level={3}>Safeguard your credentials in a vault.</Title>
+                <Text className="whitespace-normal">
+                  Secrets are encrypted variables that you can you use in your
+                  Voice Applications. Your secrets are only available for use
+                  within the Project.{' '}
+                  <a
+                    className="term"
+                    href="https://learn.fonoster.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Learn more.
+                  </a>
+                </Text>
+              </div>
+              <div>
+                <Button
+                  type="text"
+                  className={classes(
+                    '!ring-offset-2 !ring-1 ring-opacity-5',
+                    isInsideDocsOpen
+                      ? '!ring-offset-primary !ring-primary'
+                      : '!ring-offset-gray-600 !ring-gray-600'
+                  )}
+                  onClick={() => setInsideDocsOpen(!isInsideDocsOpen)}
                 >
-                  Learn more.
-                </a>
-              </Text>
+                  SDK
+                </Button>
+              </div>
             </div>
             <div className="grid grid-cols-1 gap-4">
               {secrets.map(secret => (
@@ -120,13 +139,15 @@ export const SecretsBoard: AppPage = () => {
         </main>
 
         <InsideDocs
+          show={isInsideDocsOpen}
           title="Create a Secret using our SDK"
           content={code}
           tableContent={{
             headers: ['Param', 'Description'],
             rows: [
               ['name: string', 'Friendly name'],
-              ['type: string', 'Type of value'],
+              ['type: enum', 'Type of value'],
+              ['value: string', 'Value of secret'],
             ],
           }}
           description="You can always interact with Fonoster from your external applications with our SDK, all our features are available to allow its extensibility."

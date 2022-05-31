@@ -11,6 +11,7 @@ import { CreationEditingProvider } from '@/mods/providers/components/creation-ed
 import { CreationEditingSecret } from '@/mods/secrets/components/creation-editing'
 import { Spinner } from '@/ui'
 
+import { classes } from '../../helpers/classes'
 import { useTitle } from '../../hooks/useTitle'
 import { Notification } from '../Notification'
 import { Header } from './Header'
@@ -18,7 +19,7 @@ import { Sidebar } from './navigation'
 import { ResourceMenu } from './navigation/ResourceMenu'
 
 const Content: React.FC = ({ children }) => {
-  const { layout } = useTitle()
+  const { layout, showGaps } = useTitle()
 
   return layout === 'default' ? (
     <div className="h-full flex w-full">
@@ -30,7 +31,12 @@ const Content: React.FC = ({ children }) => {
 
         <div className="flex-1 flex items-stretch overflow-hidden">
           <main className="flex-1 overflow-y-auto">
-            <section className="max-w-7xl mx-auto p-6 min-w-0 flex-1 h-full flex flex-col lg:order-last">
+            <section
+              className={classes(
+                'max-w-7xl mx-auto min-w-0 flex-1 h-full flex flex-col lg:order-last',
+                showGaps ? 'p-6' : 'p-0'
+              )}
+            >
               {children}
             </section>
           </main>

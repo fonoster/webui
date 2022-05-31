@@ -11,7 +11,7 @@ import { Notifier } from '@/mods/shared/components/Notification'
 import { classes } from '@/mods/shared/helpers/classes'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
 import { getQueryClient } from '@/mods/shared/libs/queryClient'
-import { Button, Spinner, Text, Title } from '@/ui'
+import { Spinner, Text, Title } from '@/ui'
 
 import { useCreationEditingAgent } from '../../components/creation-editing'
 import { useAgents } from '../../hooks/useAgents'

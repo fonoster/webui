@@ -329,3 +329,11 @@ table .thead--plans th {
   background-color: rgba(244, 69, 102, 0.08) !important;
   padding: 0.5rem 1rem !important;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600;
+}
