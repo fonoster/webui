@@ -1,0 +1,54 @@
+version: '3.7'
+
+networks:
+  fonoster:
+
+services:
+
+  apiserver:
+    image: traefik:v2.4
+    command:
+      - "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:${HTTPS_PORT}"
+      - "--entrypoints.websecure.http.tls.certResolver=le"
+      - "--certificatesresolvers.le.acme.tlschallenge=true"
+      #- "--certificatesresolvers.le.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.le.acme.email=${LETSENCRYPT_EMAIL}"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"      
+    ports:
+      - "${HTTPS_PORT}:${HTTPS_PORT}"
+    networks:
+      - fonoster
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "${CONFIG}/letsencrypt:/letsencrypt"
+
+  webui:
+    image: fonoster/webui:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.webui.rule=Host(`${LETSENCRYPT_DOMAIN}`)"
+      - "traefik.http.routers.webui.entrypoints=websecure"
+      - "traefik.http.routers.webui.tls.certresolver=le"
+    expose:
+      - 3000
+    environment:
+      - NEXTAUTH_URL
+      - ALLOW_INSECURE
+      - ENDPOINT
+      - NEXTJS_URL
+      - GITHUB_CLIENT_ID
+      - GITHUB_CLIENT_SECRET
+      - AUTH_SECRET
+      - JWT_SECRET
+      - ACCESS_KEY_ID
+      - ACCESS_KEY_SECRET
+      - LOGS_TRANSPORT
+    networks:
+      - fonoster
+    volumes:
+      - ${CONFIG}/.env:/app/.env
+      - ${CONFIG}/config:/home/nextjs/.fonoster/config

@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+env:
+  HOST: "console.fonoster.io"
+
+jobs:
+
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(node -e "console.log(require('./package.json').version)")
+      - name: Publish
+        uses: elgohr/Publish-Docker-Github-Action@master
+        env:
+          DOCKER_BUILDKIT: 1
+        with:
+          name: fonoster/webui
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+          workdir: .
+          tags: "latest, ${{ steps.get_version.outputs.VERSION }}"
+          buildargs: DOCKER_BUILDKIT
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build_and_push
+    steps:
+      - name: Deploy to Digital Ocean droplet via SSH action
+        uses: appleboy/ssh-action@v0.1.3
+        with:
+          host: $HOST
+          username: ${{ secrets.DIGITALOCEAN_USERNAME }}
+          key: ${{ secrets.DIGITALOCEAN_SSHKEY }}
+          passphrase: ${{ secrets.DIGITALOCEAN_PASSPHRASE }}
+          script: |
+            set -e
+            cd /opt/fonoster
+            # Stopping all containers
+            docker-compose down
+            # Removing all images
+            docker system prune -fa
+            # Restarting the service
+            docker-compose up -d
