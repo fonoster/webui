@@ -38,7 +38,7 @@ export const Sidebar = () => {
           <div className="flex-1 mt-6 w-full px-2 space-y-1">
             {menu.map(item =>
               item.menu ? (
-                <Menu as="div" className="z-10 flex-shrink-0">
+                <Menu as="div" key={item.name} className="z-10 flex-shrink-0">
                   <div>
                     <Menu.Button
                       className={classes(
