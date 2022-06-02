@@ -87,8 +87,8 @@ export const ProjectSettingsPanel = () => {
                 Project details
               </Title>
               <Text>
-                Learn more about the capabilities and purpose of Projects in our
-                docs.
+                Check our docs for detail information about how to get started
+                with Projects.
               </Text>
             </div>
             <div className="mt-5">
@@ -201,10 +201,7 @@ export const ProjectSettingsPanel = () => {
               <Title level={4} className="leading-6 m-0">
                 Danger Zone
               </Title>
-              <Text>
-                This section is mainly dedicated to all actions that cannot be
-                undone. Please be certain.
-              </Text>
+              <Text>The following actions are irreversible and permanent.</Text>
             </div>
             <div className="mt-5 border-t border-gray-400">
               <dl className="sm:divide-y sm:divide-gray-600">
@@ -214,8 +211,7 @@ export const ProjectSettingsPanel = () => {
                       Delete Project
                     </Title>
                     <Text options={{ small: true }}>
-                      Once you delete a Project and all related data, there is
-                      no going back.
+                      Your Project and all related resources will be deleted.
                     </Text>
                   </dt>
                   <dd className="flex items-center justify-end mt-1">

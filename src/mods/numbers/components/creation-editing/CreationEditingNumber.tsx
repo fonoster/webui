@@ -78,7 +78,7 @@ export const CreationEditingNumber = () => {
     () => ({
       title: 'Add a new Number to handle incoming and outgoing calls.',
       description:
-        'You will need a Number to make and receive calls from traditional phones.',
+        'Use this section to managed your Numbers and control their settings.',
       buttonText: isEdit ? 'Save' : 'Create Number',
     }),
     [isEdit]

@@ -32,7 +32,8 @@ export const SIPLogsBoard: AppPage = () => {
       <div className="mb-4 lg:w-4/6">
         <Title level={3}>SIP Network logs</Title>
         <Text className="whitespace-normal">
-          Configure your Intents and Engine (DialogFlow) and your Speech API.{' '}
+          Here you will find notifications related to events and errors on your
+          SIP Network.{' '}
           <a
             className="term"
             href="https://learn.fonoster.com"

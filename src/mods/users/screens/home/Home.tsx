@@ -59,22 +59,21 @@ export const ProjectProfile = (props: {
 
 const learnResources = [
   {
-    title: 'API reference',
+    title: 'Fonoster Docs',
     description:
       'Technical overviews, how-tos, release notes, and support material.',
-    url: 'https://docs.fonoster.com/api/',
+    url: 'https://learn.fonoster.com/docs',
   },
   {
-    title: 'Dialogflow connectors',
-    description:
-      'Creating Programmable Voice Applications without having to do any coding.',
-    url: 'https://docs.fonoster.com',
+    title: 'Dialogflow connector',
+    description: 'Connect your existing DialogFlow Agents with the PSTN.',
+    url: 'https://learn.fonoster.com/docs/tutorials/connecting_with_dialogflow',
   },
   {
     title: 'How can we help?',
     description:
-      'Business & Community Support, articles, product documentation, and the Fonoster Marketplace.',
-    url: 'https://docs.fonoster.com/api/',
+      'Business & Community Support, articles, product documentation, and the Marketplace.',
+    url: 'https://learn.fonoster.com/docs/community',
   },
 ]
 
@@ -140,12 +139,14 @@ export const Home: AppPage = () => {
               Hey <strong>{session?.user.name?.split(' ')?.[0]}</strong>,
               welcome to <strong>Fonoster</strong>!
             </Title>
-            <Title level={4}>Start building your projects, let’s go!</Title>
+            <Title level={4}>
+              Ready to engage your customers better, faster?
+            </Title>
             <Text className="max-w-lg">
-              Create resources, and organize them in a way that suits your
-              workflow using projects.{' '}
+              Create a new project to begin managing your SIP Network and
+              Programmable Voice Applications.{' '}
               <a
-                href="#"
+                href="https://learn.fonoster.com/docs/getting_started/create_a_voice_application"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white font-bold"

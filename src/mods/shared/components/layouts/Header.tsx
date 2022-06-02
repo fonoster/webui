@@ -187,7 +187,7 @@ export const Header = () => {
         )}
       </Disclosure>
       {layout === 'home' && (
-        <Banner message="Upgrade your plan for more benefits, With the Enterprise plan you can create up to 5 projects." />
+        <Banner message="You are currently on the Developer plan. Turn billing ON for more projects and additional benefits." />
       )}
     </>
   )

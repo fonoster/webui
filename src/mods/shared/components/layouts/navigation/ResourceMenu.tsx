@@ -30,7 +30,7 @@ export const ResourceMenu = () => {
     () => [
       {
         name: 'Applications',
-        description: 'Create Dialogflow Connectors',
+        description: 'Connect with the PSTN',
         icon: () => <CollectionIcon className="h-6 w-6 text-primary" />,
         onClick: () => openAppPanel(),
       },
@@ -44,7 +44,7 @@ export const ResourceMenu = () => {
       },
       {
         name: 'Phone Numbers',
-        description: 'Create a new number',
+        description: 'Create a new Number',
         icon: () => (
           <PhoneIcon className="h-6 w-6" style={{ color: '#69A8FF' }} />
         ),
@@ -68,7 +68,7 @@ export const ResourceMenu = () => {
       },
       {
         name: 'Agents',
-        description: 'Create a new agent',
+        description: 'Create a new Agent',
         icon: () => (
           <PhoneIcon className="h-6 w-6" style={{ color: '#1ee2ce' }} />
         ),

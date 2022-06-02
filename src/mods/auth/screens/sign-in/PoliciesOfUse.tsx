@@ -3,7 +3,7 @@ import { WhiteText } from '@/ui'
 const Terms = () => (
   <a
     className="term"
-    href="https://fonoster.com/"
+    href="https://learn.fonoster.com/docs/company/terms"
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -14,7 +14,7 @@ const Terms = () => (
 const Privacy = () => (
   <a
     className="term"
-    href="https://fonoster.com/"
+    href="https://learn.fonoster.com/docs/company/privacy"
     target="_blank"
     rel="noopener noreferrer"
   >

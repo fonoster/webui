@@ -53,16 +53,15 @@ export const ProvidersBoard: AppPage = () => {
       <div className="mb-4 lg:w-4/6">
         <Title level={3}>Trunks</Title>
         <Text className="whitespace-normal">
-          Trunking is a cloud based solution that allows you to bring your own
-          PSTN voice carrier to Fonoster, enabling your calls to use our
-          Programmable Voice APIs.{' '}
+          Use this section to configure your VoIP Providers for inbound and
+          outbound calls to the PSTN.{' '}
           <a
             className="term"
-            href="https://learn.fonoster.com"
+            href="https://marketplace.fonoster.com/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn more.
+            Recommended Providers.
           </a>
         </Text>
       </div>

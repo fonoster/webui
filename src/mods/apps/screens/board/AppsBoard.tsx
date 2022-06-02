@@ -51,12 +51,12 @@ export const AppsBoard: AppPage = () => {
   return isSuccess ? (
     <>
       <div className="mb-4 lg:w-4/6">
-        <Title level={3}>Applications to connect your Dialogflow Bots.</Title>
+        <Title level={3}>Programmable Voice Applications.</Title>
         <Text className="whitespace-normal">
-          Configure your Intents and Engine (DialogFlow) and your Speech API.{' '}
+          Use this section to connect your DialogFlow Agents with your Numbers.{' '}
           <a
             className="term"
-            href="https://learn.fonoster.com"
+            href="https://learn.fonoster.com/docs/tutorials/connecting_with_dialogflow"
             target="_blank"
             rel="noopener noreferrer"
           >

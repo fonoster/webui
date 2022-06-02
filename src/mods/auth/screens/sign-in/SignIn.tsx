@@ -11,12 +11,12 @@ import { useRedirect } from '../../hooks/useRedirect'
 import { PoliciesOfUse } from './PoliciesOfUse'
 
 export const features = [
-  'Phone verification',
-  'Call tracking',
-  'Connect your Telephony with Bots',
-  'SMS',
-  'Click-to-call',
-  'Messaging',
+  'Programmable Voice',
+  'Phone Verification',
+  'Call Tracking',
+  'Click-to-Call',
+  'Phone System IVR',
+  'Voice Alerts',
 ]
 
 export const SignIn: NextPage = () => {
@@ -40,9 +40,9 @@ export const SignIn: NextPage = () => {
 
               <Title className="my-7">Sign in to Fonoster</Title>
               <Text className="mb-7">
-                Create a smart voice applications that meets your business needs
-                without the clutter of unneeded features or historically
-                burdensome customizations.
+                Fonoster is a cloud-based service that provides developers with
+                tools for building, deploying, and scaling customer engagement
+                solutions.
               </Text>
 
               <Button
@@ -62,7 +62,7 @@ export const SignIn: NextPage = () => {
         <div className="absolute inset-0 py-12 px-4 sm:px-6 lg:px-8">
           <div className="h-full">
             <Title level={3} className="mb-8">
-              With us <strong className="text-primary">you can</strong>:
+              What{"'"}s <strong className="text-primary">inside</strong>:
             </Title>
             {features.map(feature => (
               <div key={feature} className="flex items-center text-center my-4">

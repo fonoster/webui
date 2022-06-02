@@ -32,7 +32,8 @@ export const AppLogsBoard: AppPage = () => {
       <div className="mb-4 lg:w-4/6">
         <Title level={3}>Applications logs</Title>
         <Text className="whitespace-normal">
-          Configure your Intents and Engine (DialogFlow) and your Speech API.{' '}
+          Here you will find notifications related to events and errors on your
+          Programmable Voice Applications.{' '}
           <a
             className="term"
             href="https://learn.fonoster.com"

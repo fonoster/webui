@@ -76,9 +76,8 @@ export const CreationEditingApp: React.FC = () => {
     () => ({
       title: isEdit
         ? 'Edit the Application'
-        : 'Create a Fonoster App to connect your Telephony infrastructure with your Dialogflow Bots.',
-      description:
-        'Use the following form to configure your Intents and Engine (DialogFlow) and your Speech API.',
+        : 'Create a Programmable Voice Application to connect your Telephony infrastructure with your Dialogflow Agents.',
+      description: 'Configure your Intents Engine and Speech API.',
       buttonText: isEdit ? 'Save' : 'Create App',
     }),
     [isEdit]
