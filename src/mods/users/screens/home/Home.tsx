@@ -77,13 +77,17 @@ const learnResources = [
   },
 ]
 
-export const generateRandomColor = () => {
+export const generateRandomColor = (id: string) => {
   const letters = '0123456789ABCDEF'
   let color = '#'
 
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)]
   }
+
+  color = localStorage.getItem(id) || color
+
+  localStorage.setItem(id, color)
 
   return color
 }
@@ -166,7 +170,7 @@ export const Home: AppPage = () => {
                   >
                     <ProjectProfile
                       project={project}
-                      color={generateRandomColor()}
+                      color={generateRandomColor(project.ref)}
                     />
                     <div>
                       <Title level={4} className="m-0 p-0 truncate max-w-[90%]">

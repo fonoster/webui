@@ -7,8 +7,9 @@ import React, { Fragment } from 'react'
 
 import { CurrentProjectSelector } from '@/mods/projects/components/current-project'
 import { classes } from '@/mods/shared/helpers/classes'
-import { Title } from '@/ui'
+import { Text, Title } from '@/ui'
 
+import pkg from '../../../../../../package.json'
 import { Logo } from '../Logo'
 import { MobileMenu } from '.'
 import { menu } from './menu'
@@ -22,7 +23,7 @@ export const Sidebar = () => {
         className="hidden w-60 dark:bg-gray-500 overflow-visible md:block border-r"
         style={{ borderColor: '#4F5358' }}
       >
-        <div className="w-full py-6 flex flex-col items-center">
+        <div className="w-full h-full py-6 flex flex-col items-center">
           <div className="w-full px-4 flex-shrink-0 flex justify-between">
             <Logo />
             <Link href={'/home'}>
@@ -42,8 +43,14 @@ export const Sidebar = () => {
                   <div>
                     <Menu.Button
                       className={classes(
-                        'text-gray-300 hover:bg-dark-600 hover:text-white',
-                        'group w-full p-4 flex items-center'
+                        'hover:bg-dark-600 hover:text-white',
+                        'group w-full p-4 flex items-center',
+                        item.menu
+                          .map(subItem => subItem.href)
+                          .join(' ')
+                          .includes(pathname)
+                          ? 'bg-dark-600 text-white'
+                          : 'text-gray-300'
                       )}
                     >
                       <item.icon
@@ -111,7 +118,7 @@ export const Sidebar = () => {
                   >
                     {item?.target === '_blank' && (
                       <span
-                        className="pointer-events-none absolute top-2 right-2 text-gray-400 group-hover:text-gray-300"
+                        className="hidden pointer-events-none absolute top-2 right-2 text-gray-100 group-hover:block"
                         aria-hidden="true"
                       >
                         <svg
@@ -137,6 +144,12 @@ export const Sidebar = () => {
                 </Link>
               )
             )}
+          </div>
+
+          <div className="flex justify-center items-end flex-1 flex-shrink-0 w-full">
+            <Text>
+              © {new Date().getFullYear()}, Fonoster. v{pkg.version}
+            </Text>
           </div>
         </div>
       </div>

@@ -32,7 +32,7 @@ export const CurrentProjectSelector = () => {
                 {currentProject?.name && (
                   <ProjectProfile
                     project={currentProject as Project}
-                    color={generateRandomColor()}
+                    color={generateRandomColor(currentProject.ref)}
                     size="10"
                   />
                 )}

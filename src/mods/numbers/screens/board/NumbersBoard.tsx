@@ -6,17 +6,17 @@ import {
 } from '@heroicons/react/outline'
 import type { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
-import { Fragment, useCallback, useLayoutEffect, useState } from 'react'
+import { Fragment, useCallback, useState } from 'react'
 import { dehydrate } from 'react-query'
 
 import type { AppPage } from '@/@types'
 import { DeleteResource } from '@/mods/shared/components/DeleteResource'
+import { Shell } from '@/mods/shared/components/layouts/Shell'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { classes } from '@/mods/shared/helpers/classes'
-import { useTitle } from '@/mods/shared/hooks/useTitle'
 import { CallSessionState } from '@/mods/shared/libs/CallSessionState'
 import { getQueryClient } from '@/mods/shared/libs/queryClient'
-import { Button, Spinner, Text, Title } from '@/ui'
+import { Button, Spinner } from '@/ui'
 
 import { useCreationEditingNumber } from '../../components/creation-editing'
 import { useDeleteNumber } from '../../hooks/useDeleteNumber'
@@ -27,16 +27,12 @@ export const NumbersBoard: AppPage = () => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const { mutate, isLoading } = useDeleteNumber()
   const [deleteRef, setDeleteRef] = useState('')
-  const { setTitle } = useTitle()
   const { numbers, isSuccess } = useNumbers()
 
   const { openEditing } = useCreationEditingNumber()
 
   const [wphone, setPhoneInstance] = useState<any>(null)
-
-  useLayoutEffect(() => {
-    setTitle('SIP Network')
-  }, [setTitle])
+  const [callNumber, setCallNumber] = useState<string>('')
 
   const onTestCall = useCallback(async (e164Number: string) => {
     Notifier.info('Test Call in progress...', { closeButton: false })
@@ -56,6 +52,7 @@ export const NumbersBoard: AppPage = () => {
     if (!phone) return
 
     setPhoneInstance(phone)
+    setCallNumber(e164Number)
 
     await phone.connect()
     await phone.call({
@@ -68,6 +65,7 @@ export const NumbersBoard: AppPage = () => {
         phone?.disconnect()
 
         setPhoneInstance(null)
+        setCallNumber('')
       }
     })
   }, [])
@@ -89,6 +87,7 @@ export const NumbersBoard: AppPage = () => {
       wphone?.disconnect()
 
       setPhoneInstance(null)
+      setCallNumber('')
     }
   }, [wphone])
 
@@ -111,154 +110,143 @@ export const NumbersBoard: AppPage = () => {
 
   return isSuccess ? (
     <>
-      <div className="mb-4 lg:w-4/6">
-        <Title level={3}>Phone Numbers</Title>
-        <Text className="whitespace-normal">
-          You will need a Number to make and receive calls from traditional
-          phones.{' '}
-          <a
-            className="term"
-            href="https://learn.fonoster.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn more.
-          </a>
-        </Text>
-      </div>
-      <table className="table-auto border-collapse rounded">
-        <thead className="bg-gray-700">
-          <tr>
-            <th
-              scope="col"
-              className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
-            >
-              REF
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
-            >
-              TRUNK REF
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
-            >
-              E164 NUMBER
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
-            >
-              WEBHOOK
-            </th>
-            <th scope="col" className="relative px-6 py-6">
-              <span className="sr-only">ACTIONS</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {numbers.map((num, idx) => (
-            <tr
-              key={num.ref}
-              className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
-            >
-              <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
-                {num.ref}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                {num.providerRef}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                {num.e164Number}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                {num.ingressInfo?.webhook}
-              </td>
-              <td className="flex items-center px-6 py-4 text-right font-medium justify-end">
-                <Button
-                  size="small"
-                  className="mr-4"
-                  icon={
-                    !wphone ? (
-                      <PhoneIcon className="h-4 w-4" aria-hidden="true" />
-                    ) : (
-                      <StatusOfflineIcon
-                        className="h-4 w-4"
-                        aria-hidden="true"
-                      />
-                    )
-                  }
-                  onClick={() =>
-                    wphone ? onHangup() : onTestCall(num.e164Number)
-                  }
-                  type={wphone ? 'outline' : 'primary'}
-                  data-desc={`Number ID: ${num.ref}`}
-                  data-intent={`Test call to ${num.e164Number}`}
-                >
-                  {wphone ? 'Hangup call' : 'Test Call'}
-                </Button>
-                <div className="flex justify-end">
-                  <Menu as="div" className="relative flex-shrink-0">
-                    <div>
-                      <Menu.Button className="w-10 h-10 flex bg-gray-700 p-1 rounded-full items-center justify-center text-white focus:outline-none text-sm">
-                        <DotsHorizontalIcon
-                          className="h-6 w-6"
+      <Shell name="numbers">
+        <table className="w-full table-auto border-collapse rounded">
+          <thead className="bg-gray-700">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
+              >
+                REF
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
+              >
+                TRUNK REF
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
+              >
+                E164 NUMBER
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-6 text-left text-xs font-medium text-white tracking-wider"
+              >
+                WEBHOOK
+              </th>
+              <th scope="col" className="relative px-6 py-6">
+                <span className="sr-only">ACTIONS</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {numbers.map((num, idx) => (
+              <tr
+                key={num.ref}
+                className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
+              >
+                <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
+                  {num.ref}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                  {num.providerRef}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                  {num.e164Number}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                  {num.ingressInfo?.webhook}
+                </td>
+                <td className="flex items-center px-6 py-4 text-right font-medium justify-end">
+                  <Button
+                    size="small"
+                    className="mr-4"
+                    icon={
+                      callNumber === num.e164Number ? (
+                        <StatusOfflineIcon
+                          className="h-4 w-4"
                           aria-hidden="true"
                         />
-                      </Menu.Button>
-                    </div>
+                      ) : (
+                        <PhoneIcon className="h-4 w-4" aria-hidden="true" />
+                      )
+                    }
+                    onClick={() =>
+                      callNumber ? onHangup() : onTestCall(num.e164Number)
+                    }
+                    type={callNumber === num.e164Number ? 'link' : 'outline'}
+                    data-desc={`Number ID: ${num.ref}`}
+                    data-intent={`Test call to ${num.e164Number}`}
+                  >
+                    {callNumber === num.e164Number
+                      ? 'Hangup call'
+                      : 'Test Call'}
+                  </Button>
+                  <div className="flex justify-end">
+                    <Menu as="div" className="relative flex-shrink-0">
+                      <div>
+                        <Menu.Button className="w-10 h-10 flex bg-gray-700 p-1 rounded-full items-center justify-center text-white focus:outline-none text-sm">
+                          <DotsHorizontalIcon
+                            className="h-6 w-6"
+                            aria-hidden="true"
+                          />
+                        </Menu.Button>
+                      </div>
 
-                    <Transition
-                      as={Fragment}
-                      enter="transition ease-out duration-100"
-                      enterFrom="transform opacity-0 scale-95"
-                      enterTo="transform opacity-100 scale-100"
-                      leave="transition ease-in duration-75"
-                      leaveFrom="transform opacity-100 scale-100"
-                      leaveTo="transform opacity-0 scale-95"
-                    >
-                      <Menu.Items className="z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              className={classes(
-                                active ? 'bg-gray-600' : '',
-                                'w-full block px-4 py-2 text-sm text-gray-300 text-left'
-                              )}
-                              onClick={() => openEditing(num)}
-                              data-desc={`Number ID: ${num.ref}`}
-                              data-intent="Edit Number"
-                            >
-                              Edit
-                            </button>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              className={classes(
-                                active ? 'bg-gray-600' : '',
-                                'w-full block px-4 py-2 text-sm text-gray-300 text-left'
-                              )}
-                              onClick={() => onOpen(num.ref)}
-                              data-desc={`Number ID: ${num.ref}`}
-                              data-intent="Delete Number"
-                            >
-                              Delete
-                            </button>
-                          )}
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Transition>
-                  </Menu>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                      <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items className="z-10 origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-gray-700 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={classes(
+                                  active ? 'bg-gray-600' : '',
+                                  'w-full block px-4 py-2 text-sm text-gray-300 text-left'
+                                )}
+                                onClick={() => openEditing(num)}
+                                data-desc={`Number ID: ${num.ref}`}
+                                data-intent="Edit Number"
+                              >
+                                Edit
+                              </button>
+                            )}
+                          </Menu.Item>
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={classes(
+                                  active ? 'bg-gray-600' : '',
+                                  'w-full block px-4 py-2 text-sm text-gray-300 text-left'
+                                )}
+                                onClick={() => onOpen(num.ref)}
+                                data-desc={`Number ID: ${num.ref}`}
+                                data-intent="Delete Number"
+                              >
+                                Delete
+                              </button>
+                            )}
+                          </Menu.Item>
+                        </Menu.Items>
+                      </Transition>
+                    </Menu>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Shell>
 
       <DeleteResource
         refId={deleteRef}

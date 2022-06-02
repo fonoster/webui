@@ -1,6 +1,7 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuAlt2Icon } from '@heroicons/react/outline'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react'
 import React, { useMemo } from 'react'
 import { Fragment } from 'react'
@@ -15,8 +16,7 @@ import { Banner } from './Banner'
 import { ResourceMenu } from './navigation/ResourceMenu'
 
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'Settings', href: '#' },
+  { name: 'Your Account', href: '/account' },
   {
     name: 'Sign out',
     href: '#',
@@ -111,16 +111,17 @@ export const Header = () => {
                         {userNavigation.map(item => (
                           <Menu.Item key={item.name}>
                             {({ active }) => (
-                              <a
-                                href={item.href}
-                                className={classes(
-                                  active ? 'bg-gray-500' : '',
-                                  'block px-4 py-2 text-sm text-gray-300'
-                                )}
-                                onClick={item.onClick}
-                              >
-                                {item.name}
-                              </a>
+                              <Link href={item.href}>
+                                <a
+                                  className={classes(
+                                    active ? 'bg-gray-500' : '',
+                                    'block px-4 py-2 text-sm text-gray-300'
+                                  )}
+                                  onClick={item.onClick}
+                                >
+                                  {item.name}
+                                </a>
+                              </Link>
                             )}
                           </Menu.Item>
                         ))}
