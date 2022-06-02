@@ -59,7 +59,7 @@ export const ProjectProfile = (props: {
 
 const learnResources = [
   {
-    title: 'Fonoster Docs',
+    title: 'Documentation',
     description:
       'Technical overviews, how-tos, release notes, and support material.',
     url: 'https://learn.fonoster.com/docs',

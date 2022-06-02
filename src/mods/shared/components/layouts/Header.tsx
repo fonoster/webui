@@ -187,7 +187,7 @@ export const Header = () => {
         )}
       </Disclosure>
       {layout === 'home' && (
-        <Banner message="You are currently on the Developer plan. Turn billing ON for more projects and additional benefits." />
+        <Banner message="You are currently on the Developer plan. Configure your billing account for more projects and additional benefits." />
       )}
     </>
   )
