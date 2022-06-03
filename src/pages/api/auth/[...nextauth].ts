@@ -74,21 +74,12 @@ export default NextAuth({
       return isAllowedToSignIn(profile.login as string)
     },
     async session({ session, token }) {
-      const _email = await getEmail(token.account)
-      const user = await getUser(_email)
-
       logger.verbose(`webui session [session -> ${JSON.stringify(session)}]`)
       logger.verbose(`webui session [token -> ${JSON.stringify(token)}]`)
 
       session.endpoint = process.env.ENDPOINT as string
 
-      const data = {
-        ...session?.user,
-        accessKeyId: user?.accessKeyId,
-        accessKeySecret: await createToken(user?.accessKeyId),
-      }
-
-      session.user = data as any
+      session.user = token.user as any
 
       return session
     },
@@ -97,8 +88,20 @@ export default NextAuth({
       logger.verbose(`webui jwt [token -> ${JSON.stringify(user)}]`)
       logger.verbose(`webui jwt [account -> ${JSON.stringify(account)}]`)
 
-      user && (token.user = user)
       account && (token.account = account)
+
+      if (!(token.user as any)?.accessKeyId) {
+        const email = await getEmail(token.account)
+        const userFromFonoster = await getUser(email)
+
+        const data = {
+          ...user,
+          accessKeyId: userFromFonoster?.accessKeyId,
+          accessKeySecret: await createToken(userFromFonoster?.accessKeyId),
+        }
+
+        token.user = data
+      }
 
       return token
     },
