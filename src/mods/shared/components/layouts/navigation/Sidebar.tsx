@@ -13,6 +13,7 @@ import pkg from '../../../../../../package.json'
 import { Logo } from '../Logo'
 import { MobileMenu } from '.'
 import { menu } from './menu'
+import { SubItem } from './SubItem'
 
 export const Sidebar = () => {
   const { pathname } = useRouter()
@@ -81,22 +82,12 @@ export const Sidebar = () => {
                       {item.menu.map(subItem => (
                         <Menu.Item key={item.name}>
                           {() => (
-                            <Link
-                              key={subItem.name}
+                            <SubItem
                               href={subItem.href}
-                              passHref
+                              isActive={pathname === subItem.href}
                             >
-                              <a
-                                className={classes(
-                                  'group w-full py-4 rounded-md flex flex-col font-medium hover:text-white',
-                                  pathname === subItem.href
-                                    ? 'text-white'
-                                    : 'text-gray-300'
-                                )}
-                              >
-                                {subItem.name}
-                              </a>
-                            </Link>
+                              {subItem.name}
+                            </SubItem>
                           )}
                         </Menu.Item>
                       ))}
