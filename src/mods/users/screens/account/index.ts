@@ -1,1 +1,1 @@
-export { default, getServerSideProps } from './Account'
+export { default } from './Account'
