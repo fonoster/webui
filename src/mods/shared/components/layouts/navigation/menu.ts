@@ -39,7 +39,7 @@ export const menu = [
   },
   {
     name: 'Learning',
-    href: 'https://marketplace.fonoster.com',
+    href: 'https://learn.fonoster.com/docs/overview',
     icon: DocumentIcon,
     target: '_blank',
   },
