@@ -59,9 +59,12 @@ const trunks: ScreenDetails = {
     tableContent: {
       headers: ['Param', 'Description'],
       rows: [
-        ['name: string', 'Friendly name'],
-        ['type: enum', 'Type of value'],
-        ['value: string', 'Value of secret'],
+        ['name: string', 'The name of the trunk'],
+        ['username: string', 'Username for the trunk'],
+        ['secret: string', 'Password for the trunk'],
+        ['host: string', 'Hostname or IP of the trunk'],
+        ['transport: string', 'The transport for the trunk'],
+        ['expires: number', 'Expiration time for the registration']
       ],
     },
     example: `
@@ -69,7 +72,7 @@ const trunks: ScreenDetails = {
     const providers = new Fonoster.Providers();
     
     const request = {
-      name: "SIP Provider",
+      name: "SIP Trunk",
       username: "trunk001",
       secret: "secretkey",
       host: "sip.provider.net"
@@ -82,37 +85,38 @@ const trunks: ScreenDetails = {
 
 const numbers: ScreenDetails = {
   title: 'SIP Network',
-  subtitle: 'Phone Numbers',
+  subtitle: 'Virtual Numbers',
   description:
-    'You will need a Number to make and receive calls from traditional phones.',
+    'You will need a Number to make and receive calls from the PSTN (traditional phones).',
   docs: {
     url: '',
-    title: 'Creating a Secret with the NodeSDK',
+    title: 'Creating a Number with the NodeSDK',
     description:
       'All features in Fonoster are designed to be API first. You can always interact with this service from your applications using one of our SDKs.',
     tableContent: {
       headers: ['Param', 'Description'],
       rows: [
-        ['name: string', 'Friendly name'],
-        ['type: enum', 'Type of value'],
-        ['value: string', 'Value of secret'],
+        ['providerRef: string', 'Provider identifier'],
+        ['e164Number: string', 'A valid number @ Provider'],
+        ['aorLink: string', 'An AOR where ingress calls will be directed to'],
+        ['ingressInfo.webhook: string', 'Ingress webhook'],
+        ['providerRef.appRef: string', 'Ingress application identifier'],
       ],
     },
     example: `
-      const Fonoster = require("@fonoster/sdk");
-      const providers = new Fonoster.Providers();
-  
-      const request = {
-        name: "SIP Provider",
-        username: "trunk001",
-        secret: "secretkey",
-        host: "sip.provider.net"
-      };
-  
-      providers.createProvider(request)
-      .then(result => {
-        console.log(result)             // successful response
-      }).catch(e => console.error(e));   // an error occurred`,
+    const Fonoster = require("@fonoster/sdk");
+    const numbers = new Fonoster.Numbers();
+    
+    const request = {
+      providerRef: "516f1577bcf86cd797439012",
+      e164Number: "+17853177343",
+      ingressInfo: {
+        webhook: "https://webhooks.acme.com/hooks"
+      }
+    };
+    
+    numbers.createNumber(request)
+      .then(console.log).catch(console.error);`,
   },
 }
 
@@ -123,32 +127,26 @@ const domains: ScreenDetails = {
     'A SIP Domain will group several SIP Agents. (e.g office, home, etc)',
   docs: {
     url: '',
-    title: 'Creating a Secret with the NodeSDK',
+    title: 'Creating a Domain with the NodeSDK',
     description:
       'All features in Fonoster are designed to be API first. You can always interact with this service from your applications using one of our SDKs.',
     tableContent: {
       headers: ['Param', 'Description'],
       rows: [
-        ['name: string', 'Friendly name'],
-        ['type: enum', 'Type of value'],
-        ['value: string', 'Value of secret'],
+        ['name: string', 'The name of the domain'],
+        ['domainUri: string', 'The domain URI'],
+        ['egressNumberRef: string', 'Reference to outbound Number'],
+        ['egressRule: string', 'Regular expression for outbound routing'],
+        ['accessDeny: string[]', 'List of IPs or networks that cannot access this domain'],
+        ['accessAllow: string[]', 'List of IPs or networks that can access this domain'],
       ],
     },
     example: `
-      const Fonoster = require("@fonoster/sdk");
-      const providers = new Fonoster.Providers();
-  
-      const request = {
-        name: "SIP Provider",
-        username: "trunk001",
-        secret: "secretkey",
-        host: "sip.provider.net"
-      };
-  
-      providers.createProvider(request)
-      .then(result => {
-        console.log(result)             // successful response
-      }).catch(e => console.error(e));   // an error occurred`,
+    const Fonoster = require("@fonoster/sdk");
+    const domains = new Fonoster.Domains();
+    
+    domains.createDomain({ name: "Local Domain", domainUri: "sip.local" })
+      .then(console.log).catch(console.error);`,
   },
 }
 
@@ -159,32 +157,32 @@ const agents: ScreenDetails = {
     'SIP Agents in the same Domain can call each other with Voice Over IP using a Software Phone (e.g Zoiper)',
   docs: {
     url: '',
-    title: 'Creating a Secret with the NodeSDK',
+    title: 'Creating an Agent with the NodeSDK',
     description:
       'All features in Fonoster are designed to be API first. You can always interact with this service from your applications using one of our SDKs.',
     tableContent: {
       headers: ['Param', 'Description'],
       rows: [
-        ['name: string', 'Friendly name'],
-        ['type: enum', 'Type of value'],
-        ['value: string', 'Value of secret'],
+        ['name: string', 'The name of the Agent'],
+        ['username: string', 'The username for SIP access'],
+        ['secret: string', 'The password for SIP access'],
+        ['privacy: string', 'Privacy mode (default: "none")'],
+        ['domains: string[]', 'List of Domains for this Agent'],
       ],
     },
     example: `
-      const Fonoster = require("@fonoster/sdk");
-      const providers = new Fonoster.Providers();
-  
-      const request = {
-        name: "SIP Provider",
-        username: "trunk001",
-        secret: "secretkey",
-        host: "sip.provider.net"
-      };
-  
-      providers.createProvider(request)
-      .then(result => {
-        console.log(result)             // successful response
-      }).catch(e => console.error(e));   // an error occurred`,
+    const Fonoster = require("@fonoster/sdk")
+    const agents = new Fonoster.Agents()
+
+    const request = {
+      name: "John Doe",
+      username: "john",
+      secret: "1234",
+      domains: ["sip.local"]
+    }
+
+    agents.createAgent(request)
+      .then(console.log).catch(console.error)`,
   },
 }
 
@@ -207,20 +205,16 @@ const secrets: ScreenDetails = {
       ],
     },
     example: `
-    const Fonoster = require("@fonoster/sdk");
-    const providers = new Fonoster.Providers();
+    const Fonoster = require("@fonoster/sdk")
+    const secrets = new Fonoster.Secrets()
 
     const request = {
-      name: "SIP Provider",
-      username: "trunk001",
-      secret: "secretkey",
-      host: "sip.provider.net"
+      secretName: "my-secret",
+      secret: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
     };
 
-    providers.createProvider(request)
-    .then(result => {
-      console.log(result)             // successful response
-    }).catch(e => console.error(e));   // an error occurred`,
+    secrets.createSecret(request)
+      .then(console.log).catch(console.error);`,
   },
 }
 
