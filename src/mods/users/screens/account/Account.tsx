@@ -45,8 +45,15 @@ export function Account() {
                   Account details
                 </Title>
                 <Text>
-                  Learn more about the capabilities and purpose of Account in
-                  our docs.
+                  Use your Account credentials with the Projects API or to login into the Command-Line Tool.
+                  <a
+                    className="term"
+                    href="https://learn.fonoster.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Learn more.
+                  </a>
                 </Text>
               </div>
               <div className="mt-5">
@@ -56,8 +63,8 @@ export function Account() {
                       <Input
                         name="name"
                         className="mb-4"
-                        label="Project name"
-                        placeholder="Type a friendly name"
+                        label="Name"
+                        placeholder="Type your name"
                         value={session?.user.name ?? ''}
                         readOnly
                       />
