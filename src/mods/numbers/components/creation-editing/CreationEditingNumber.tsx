@@ -209,7 +209,7 @@ export const CreationEditingNumber = () => {
                 label="Optional Voice Application"
                 placeholder="Choose Application"
                 descriptionText="If the webhook parameter is set, we will forward the call to your Voice Application. If no webhook is set, but you select an Application we will connect your call to a managed resource."
-                disabled={!hasApps || isLoading}
+                disabled={isLoading}
                 error={
                   errors?.ingressInfo?.appRef && 'You must enter a Application'
                 }
