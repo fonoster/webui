@@ -179,6 +179,7 @@ export const CreationEditingNumber = () => {
           <Controller
             name="ingressInfo.webhook"
             control={control}
+            rules={{ required: !hasApps }}
             render={({ field: { name, onBlur, onChange, value } }) => (
               <Input
                 className="mb-4"
@@ -210,10 +211,7 @@ export const CreationEditingNumber = () => {
                 descriptionText="If the webhook parameter is set, we will forward the call to your Voice Application. If no webhook is set, but you select an Application we will connect your call to a managed resource."
                 disabled={!hasApps || isLoading}
                 error={
-                  !hasApps
-                    ? 'Before adding a Number you must create a Application'
-                    : errors?.ingressInfo?.appRef &&
-                      'You must enter a Application'
+                  errors?.ingressInfo?.appRef && 'You must enter a Application'
                 }
                 {...{
                   name,
