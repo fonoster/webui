@@ -72,11 +72,13 @@ export const Header = () => {
                         <div className="flex items-center px-4">
                           <div className="flex-shrink-0">
                             <span className="sr-only">Open user menu</span>
-                            <img
-                              className="h-8 w-8 rounded-full"
-                              src={user?.avatar}
-                              alt=""
-                            />
+                            {user?.avatar && (
+                              <img
+                                className="h-8 w-8 rounded-full"
+                                src={user?.avatar}
+                                alt=""
+                              />
+                            )}
                           </div>
                           <div className="ml-3">
                             <div className="text-base font-medium text-white">
@@ -135,11 +137,13 @@ export const Header = () => {
               <div className="pt-4 pb-3 border-t border-gray-200">
                 <div className="flex items-center px-4">
                   <div className="flex-shrink-0">
-                    <img
-                      className="h-10 w-10 rounded-full"
-                      src={user?.avatar}
-                      alt=""
-                    />
+                    {user?.avatar && (
+                      <img
+                        className="h-10 w-10 rounded-full"
+                        src={user?.avatar}
+                        alt=""
+                      />
+                    )}
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium text-white">
