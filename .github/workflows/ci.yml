@@ -5,9 +5,13 @@ on:
     branches: [ main ]
 
   workflow_dispatch:
-
-env:
-  HOST: "console.fonoster.io"
+    inputs:
+      choice:
+        type: choice
+        description: Select environment
+        options:
+        - console.fonoster.net
+        - console.fonoster.io
 
 jobs:
 
@@ -38,7 +42,7 @@ jobs:
       - name: Deploy to Digital Ocean droplet via SSH action
         uses: appleboy/ssh-action@v0.1.3
         with:
-          host: $HOST
+          host: ${{ github.event.inputs.choice }}
           username: ${{ secrets.DIGITALOCEAN_USERNAME }}
           key: ${{ secrets.DIGITALOCEAN_SSHKEY }}
           passphrase: ${{ secrets.DIGITALOCEAN_PASSPHRASE }}
