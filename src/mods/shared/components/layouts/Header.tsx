@@ -1,19 +1,17 @@
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { MenuAlt2Icon } from '@heroicons/react/outline'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
-import { signOut, useSession } from 'next-auth/react'
-import React, { useMemo } from 'react'
+import { signOut } from 'next-auth/react'
+import React from 'react'
 import { Fragment } from 'react'
 
+import { useLoggedIn } from '@/mods/auth/hooks/useLoggedIn'
 import { currentProjectStorage } from '@/mods/projects/components/current-project'
-import { useMobileMenu } from '@/mods/shared/hooks/useMobileMenu'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
 import { Title } from '@/ui'
 
 import { classes } from '../../helpers/classes'
 import { Banner } from './Banner'
-import { ResourceMenu } from './navigation/ResourceMenu'
 
 const userNavigation = [
   { name: 'Your Account', href: '/account' },
@@ -28,18 +26,8 @@ const userNavigation = [
 ]
 
 export const Header = () => {
-  const { open } = useMobileMenu()
   const { title, layout } = useTitle()
-  const { data: session } = useSession()
-
-  const user = useMemo(
-    () => ({
-      name: session?.user.name || '',
-      email: session?.user.email || '',
-      imageUrl: session?.user.image || '',
-    }),
-    [session?.user]
-  )
+  const { user } = useLoggedIn()
 
   return (
     <>
@@ -86,13 +74,13 @@ export const Header = () => {
                             <span className="sr-only">Open user menu</span>
                             <img
                               className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
+                              src={user?.avatar}
                               alt=""
                             />
                           </div>
                           <div className="ml-3">
                             <div className="text-base font-medium text-white">
-                              {user.name}
+                              {user?.name}
                             </div>
                           </div>
                         </div>
@@ -149,16 +137,16 @@ export const Header = () => {
                   <div className="flex-shrink-0">
                     <img
                       className="h-10 w-10 rounded-full"
-                      src={user.imageUrl}
+                      src={user?.avatar}
                       alt=""
                     />
                   </div>
                   <div className="ml-3">
                     <div className="text-base font-medium text-white">
-                      {user.name}
+                      {user?.name}
                     </div>
                     <div className="text-sm font-medium text-gray-300">
-                      {user.email}
+                      {user?.email}
                     </div>
                   </div>
                   <button
@@ -191,33 +179,5 @@ export const Header = () => {
         <Banner message="You are currently on the Developer plan. Configure your billing account for more projects and additional benefits." />
       )}
     </>
-  )
-
-  return (
-    <header className="w-full">
-      <div className="relative z-10 flex-shrink-0 h-16 bg-gray-800 flex">
-        <button
-          type="button"
-          className="px-4 text-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary md:hidden"
-          onClick={open}
-        >
-          <MenuAlt2Icon className="h-6 w-6" aria-hidden="true" />
-        </button>
-        <div className="flex-1 flex justify-between px-6">
-          {layout === 'default' && (
-            <>
-              <div className="flex-1 flex justify-center items-center">
-                <Title level={3} className="w-full flex m-0 p-0 block truncate">
-                  {title}
-                </Title>
-              </div>
-              <div className="flex flex-1 justify-end items-center space-x-4 sm:ml-6 sm:space-x-6 ml-2">
-                <ResourceMenu />
-              </div>
-            </>
-          )}
-        </div>
-      </div>
-    </header>
   )
 }

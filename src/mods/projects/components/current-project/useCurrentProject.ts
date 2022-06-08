@@ -17,7 +17,7 @@ export const getCurrentProjectFromStorage = () => {
 }
 
 export const useCurrentProject = () => {
-  const { session } = useLoggedIn()
+  const { user } = useLoggedIn()
   const queryClient = useQueryClient()
   const { projects, hasProjects, isSuccess } = useProjects()
 
@@ -55,10 +55,16 @@ export const useCurrentProject = () => {
       const project = getProject()
 
       changeCurrentProject(
-        session?.user.accessKeyId === project.userRef ? project : null
+        user?.accessKeyId === project.userRef ? project : null
       )
     }
-  }, [hasProjects, session, getProject, isSuccess, changeCurrentProject])
+  }, [
+    hasProjects,
+    user.accessKeyId,
+    getProject,
+    isSuccess,
+    changeCurrentProject,
+  ])
 
   useEffect(() => {
     setDefaultProject()

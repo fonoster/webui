@@ -57,9 +57,7 @@ export const CreationEditingProvider: React.FC = () => {
             onSuccess() {
               onClose()
 
-              Notifier.success(
-                'Your new Provider has been successfully created.'
-              )
+              Notifier.success('Your new Trunk has been successfully created.')
             },
           })
     },

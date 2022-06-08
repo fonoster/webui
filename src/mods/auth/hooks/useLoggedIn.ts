@@ -1,6 +1,8 @@
 import { useSession } from 'next-auth/react'
 import { useMemo } from 'react'
 
+import { useGetUserLogged } from '@/mods/users/hooks/useGetUserLogged'
+
 export enum SESSION_STATUS {
   IS_LOADING = 'loading',
   AUTH = 'authenticated',
@@ -25,8 +27,17 @@ export const useLoggedIn = () => {
     [status]
   )
 
+  const { user } = useGetUserLogged({
+    ref: session?.user?.accessKeyId as string,
+    enabled: isAuthenticated,
+  })
+
   return {
-    session,
+    user: {
+      ...session?.user,
+      ...user,
+      avatar: user?.avatar || session?.user?.image,
+    },
     status,
     isLoading,
     isAuthenticated,

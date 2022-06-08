@@ -9,8 +9,11 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const manager = new Fonoster.Auth()
+  const userManager = new Fonoster.Users(await getUserLogged(req))
 
   const handlers = {
+    get: async () => userManager.getUser(req.query.ref as string),
+    put: async () => userManager.updateUser(req.body),
     patch: async () =>
       manager.createToken({
         accessKeyId: (await getUserLogged(req)).accessKeyId,

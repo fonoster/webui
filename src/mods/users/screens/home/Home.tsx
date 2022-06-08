@@ -3,11 +3,12 @@ import { Menu, Transition } from '@headlessui/react'
 import { DotsHorizontalIcon, PlusIcon } from '@heroicons/react/outline'
 import type { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { getSession, useSession } from 'next-auth/react'
+import { getSession } from 'next-auth/react'
 import { Fragment, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { dehydrate } from 'react-query'
 
 import type { AppPage } from '@/@types'
+import { useLoggedIn } from '@/mods/auth/hooks/useLoggedIn'
 import { useCreationEditingProject } from '@/mods/projects/components/creation-editing'
 import { useCurrentProject } from '@/mods/projects/components/current-project'
 import { useDeleteProject } from '@/mods/projects/hooks/useDeleteProject'
@@ -94,7 +95,7 @@ export const generateRandomColor = (id: string) => {
 
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export const Home: AppPage = () => {
-  const { data: session } = useSession()
+  const { user } = useLoggedIn()
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   const { mutate, isLoading } = useDeleteProject()
   const [deleteRef, setDeleteRef] = useState('')
@@ -140,8 +141,8 @@ export const Home: AppPage = () => {
         <main className="flex-1 relative overflow-y-auto focus:outline-none xl:order-first">
           <div className="absolute inset-0 py-6 px-4 sm:px-6 lg:px-8">
             <Title level={2} className="mb-8">
-              Hey <strong>{session?.user.name?.split(' ')?.[0]}</strong>,
-              welcome to <strong>Fonoster</strong>!
+              Hey <strong>{user.name?.split(' ')?.[0]}</strong>, welcome to{' '}
+              <strong>Fonoster</strong>!
             </Title>
             <Title level={4}>
               Ready to engage your customers better, faster?
