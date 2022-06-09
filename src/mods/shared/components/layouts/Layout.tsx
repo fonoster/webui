@@ -33,7 +33,7 @@ const Content: React.FC = ({ children }) => {
           <main className="flex-1 overflow-y-auto">
             <section
               className={classes(
-                'max-w-7xl mx-auto min-w-0 flex-1 h-full flex flex-col lg:order-last',
+                'relative max-w-7xl mx-auto min-w-0 flex-1 h-full flex flex-col lg:order-last',
                 showGaps ? 'p-6' : 'p-0'
               )}
             >
@@ -50,7 +50,7 @@ const Content: React.FC = ({ children }) => {
 
         <div className="flex-1 flex items-stretch overflow-hidden">
           <main className="flex-1 overflow-y-auto">
-            <section className="max-w-7xl mx-auto p-6 min-w-0 flex-1 h-full flex flex-col lg:order-last">
+            <section className="relative max-w-7xl mx-auto p-6 min-w-0 flex-1 h-full flex flex-col lg:order-last">
               {children}
             </section>
           </main>
