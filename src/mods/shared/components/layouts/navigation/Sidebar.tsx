@@ -80,7 +80,7 @@ export const Sidebar = () => {
                       </Title>
 
                       {item.menu.map(subItem => (
-                        <Menu.Item key={item.name}>
+                        <Menu.Item key={subItem.name}>
                           {() => (
                             <SubItem
                               href={subItem.href}
@@ -97,7 +97,6 @@ export const Sidebar = () => {
               ) : (
                 <Link key={item.name} href={item.href as string}>
                   <a
-                    key={item.name}
                     className={classes(
                       'hover:bg-dark-600 hover:text-white',
                       'relative cursor-pointer group w-full p-4 flex items-center',
