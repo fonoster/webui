@@ -1,11 +1,15 @@
+import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/react'
 import { useCallback, useLayoutEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
+import { dehydrate } from 'react-query'
 
 import { useLoggedIn } from '@/mods/auth/hooks/useLoggedIn'
 import { useRefreshSecret } from '@/mods/auth/hooks/useRefreshSecret'
 import { Confirm } from '@/mods/shared/components/Confirm'
 import { Notifier } from '@/mods/shared/components/Notification'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
+import { getQueryClient } from '@/mods/shared/libs/queryClient'
 import { Button, Input, Text, Title } from '@/ui'
 
 import { useEditUser } from '../../hooks/useEditUser'
@@ -173,6 +177,18 @@ export function Account() {
       />
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req })
+  const queryClient = getQueryClient()
+
+  return {
+    props: {
+      session,
+      dehydratedState: dehydrate(queryClient),
+    },
+  }
 }
 
 Account.isProtected = true
