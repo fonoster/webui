@@ -17,10 +17,7 @@ export const useRedirect = () => {
   } = useRouter()
   const [hasRedirectToChecked, setHasRedirectToChecked] = useState(false)
 
-  const redirectToSignIn = useCallback(
-    () => replace(`${PAGES.SIGN_IN}?redirect_to=${asPath}`),
-    [asPath, replace]
-  )
+  const redirectToSignIn = useCallback(() => replace(PAGES.SIGN_IN), [replace])
 
   const redirectToNextPage = useCallback(() => {
     const nextPath = redirectParam ?? redirectStore.get()
