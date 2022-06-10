@@ -4,22 +4,31 @@ import { useQuery } from 'react-query'
 import { API } from '@/mods/shared/libs/api'
 
 export const useLogs = (
-  params: { time: string; eventType: string },
+  params: { time: string; eventType?: string; level?: string },
+  onSuccess?: (data: SearchEventsResponse) => void,
+  refetchInterval = 0,
   queryKey = 'logs'
 ) => {
-  const { data, isLoading, isSuccess } = useQuery<SearchEventsResponse>(
-    [queryKey, params],
-    async () =>
-      (
-        await API.get('/monitor', {
-          params,
-        })
-      ).data.data
-  )
+  const { data, isLoading, isSuccess, isRefetching, isFetching } =
+    useQuery<SearchEventsResponse>(
+      [queryKey, params],
+      async () =>
+        (
+          await API.get('/monitor', {
+            params,
+          })
+        ).data.data,
+      {
+        refetchInterval,
+        onSuccess,
+      }
+    )
 
   return {
     events: data?.events ?? [],
     isLoading,
     isSuccess,
+    isRefetching,
+    isFetching,
   }
 }

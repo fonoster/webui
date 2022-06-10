@@ -12,6 +12,7 @@ import { Title } from '@/ui'
 
 import { classes } from '../../helpers/classes'
 import { Banner } from './Banner'
+import { Notifications } from './Notifications'
 
 const userNavigation = [
   { name: 'Your Account', href: '/account' },
@@ -57,13 +58,7 @@ export const Header = () => {
                   )}
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                  <button
-                    type="button"
-                    className="bg-gray-700 p-1 rounded-full text-gray-400 hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
+                  <Notifications />
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="ml-3 relative">
