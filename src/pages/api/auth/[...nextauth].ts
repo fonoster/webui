@@ -41,6 +41,12 @@ const isAllowedToSignIn = async (username?: string) => {
   return isAllowed || '/waiting-list'
 }
 
+const generateName = (email: string, name?: string) => {
+  const [emailName] = email.split('@')
+
+  return name || emailName
+}
+
 export default NextAuth({
   providers: [
     GithubProvider({
@@ -58,13 +64,16 @@ export default NextAuth({
       logger.verbose(`webui signIn [profile -> ${JSON.stringify(profile)}]`)
       logger.verbose(`webui signIn [account -> ${JSON.stringify(account)}]`)
 
-      const _email = await getEmail(account)
-      let user = await getUser(_email)
+      const email = await getEmail(account)
+      let user = await getUser(email)
 
       if (!user) {
+        if (!email) throw new Error('No email found')
+
         user = await createUser({
-          email: _email,
-          name: profile.name,
+          email,
+          avatar: profile.image,
+          name: generateName(email, profile?.name),
           // Setting this to a secured value but we won't
           // support username/password for now
           secret: account.access_token,

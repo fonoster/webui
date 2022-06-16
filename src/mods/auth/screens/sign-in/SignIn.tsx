@@ -48,9 +48,9 @@ export const SignIn: NextPage = () => {
               <Button
                 loading={isLoading}
                 onClick={signInGithub}
-                data-intent="Sign in to Fonoster with Github account"
+                data-intent="Sign In to Fonoster with Github account"
               >
-                Sign in with Github
+                Sign In with Github
               </Button>
 
               <PoliciesOfUse />

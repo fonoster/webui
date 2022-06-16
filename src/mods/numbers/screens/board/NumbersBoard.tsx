@@ -6,7 +6,7 @@ import {
 } from '@heroicons/react/outline'
 import type { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
-import { Fragment, useCallback, useState } from 'react'
+import { Fragment, useCallback, useEffect, useState } from 'react'
 import { dehydrate } from 'react-query'
 
 import type { AppPage } from '@/@types'
@@ -105,6 +105,12 @@ export const NumbersBoard: AppPage = () => {
       },
     })
   }, [mutate, deleteRef])
+
+  useEffect(() => {
+    return () => {
+      onHangup()
+    }
+  })
 
   if (isSuccess && !numbers.length) return <NoNumbers />
 

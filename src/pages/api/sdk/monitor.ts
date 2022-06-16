@@ -12,21 +12,32 @@ export default async function handle(
   const manager = new Monitor(getServerCurrentProject(req))
 
   const get = async () => {
-    const { time = TIMES[0].value, eventType = 'app' } = req.query
+    const { time = TIMES[0].value, eventType, level } = req.query
 
     validateTimeFilter(time as string)
 
-    if (!['app', 'sip', 'call'].includes(eventType as string))
-      throw new Error('The event-type parameter is not valid')
+    const must: any[] = []
+
+    if (level) {
+      must.push({
+        match: {
+          level,
+        },
+      })
+    }
+
+    if (eventType) {
+      must.push({
+        match: {
+          eventType,
+        },
+      })
+    }
 
     return manager.searchEvents({
       query: {
         bool: {
-          must: {
-            match: {
-              eventType,
-            },
-          },
+          must,
           filter: {
             range: {
               '@timestamp': {
