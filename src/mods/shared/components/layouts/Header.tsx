@@ -175,7 +175,7 @@ export const Header = () => {
         )}
       </Disclosure>
       {layout === 'home' && (
-        <Banner message="You are currently on the Developer plan. Configure your billing account for more projects and additional benefits." />
+        <Banner message="Welcome to Fonoster Cloud. This service is in the beta phase for evaluation purposes and not for production use." />
       )}
     </>
   )

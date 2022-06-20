@@ -80,7 +80,8 @@ export default NextAuth({
         })
       }
 
-      return isAllowedToSignIn(profile.login as string)
+      // return isAllowedToSignIn(profile.login as string)
+      return true
     },
     async session({ session, token }) {
       logger.verbose(`webui session [session -> ${JSON.stringify(session)}]`)
