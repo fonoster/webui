@@ -31,16 +31,6 @@ async function getEmail(account) {
   return sortedEmails[0].email as string
 }
 
-const isAllowedToSignIn = async (username?: string) => {
-  const { users } = (await (
-    await fetch(process.env.WAITING_LIST_URL as string)
-  ).json()) as Record<string, string[]>
-
-  const isAllowed = users.some(user => user === username)
-
-  return isAllowed || '/waiting-list'
-}
-
 const generateName = (email: string, name?: string) => {
   const [emailName] = email.split('@')
 
