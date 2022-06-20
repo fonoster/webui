@@ -70,7 +70,6 @@ export default NextAuth({
         })
       }
 
-      // return isAllowedToSignIn(profile.login as string)
       return true
     },
     async session({ session, token }) {
