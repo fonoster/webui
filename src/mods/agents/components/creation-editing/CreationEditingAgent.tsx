@@ -173,7 +173,7 @@ export const CreationEditingAgent = () => {
                   <Input
                     className="mb-4"
                     label="Your username"
-                    placeholder="Type a friendly username"
+                    placeholder="Type the username"
                     disabled={isLoading}
                     error={
                       errors?.username &&
