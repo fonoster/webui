@@ -187,7 +187,7 @@ export const CreationEditingNumber = () => {
                 placeholder="Type a webhook (e.g. https://c5b6-172-22215.ngrok.io)"
                 disabled={isLoading}
                 error={
-                  errors?.ingressInfo?.webhook &&
+                  errors?.ingressInfo?.['webhook'] &&
                   'You must enter a webhook for your Number.'
                 }
                 {...{
@@ -211,7 +211,8 @@ export const CreationEditingNumber = () => {
                 descriptionText="If the webhook parameter is set, we will forward the call to your Voice Application. If no webhook is set, but you select an Application we will connect your call to a managed resource."
                 disabled={isLoading}
                 error={
-                  errors?.ingressInfo?.appRef && 'You must enter a Application'
+                  errors?.ingressInfo?.['appRef'] &&
+                  'You must enter a Application'
                 }
                 {...{
                   name,
