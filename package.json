@@ -10,14 +10,20 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start",
     "lint:check": "eslint . --ext .js,.ts",
     "lint:format": "prettier \"./**/*.{ts,tsx}\" --check",
-    "lint:ts:check": "tsc --noEmit"
+    "lint:ts:check": "tsc --noEmit",
+    "start": "next start"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   },
   "dependencies": {
-    "@fonoster/opentelemetry-user-interaction": "github:fonoster/opentelemetry-user-interaction",
+    "@fonoster/logger": "^0.3.11",
     "@fonoster/monitor": "^0.3.11",
+    "@fonoster/opentelemetry-user-interaction": "github:fonoster/opentelemetry-user-interaction",
     "@fonoster/sdk": "^0.3.11",
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
@@ -73,10 +79,5 @@
   },
   "engines": {
     "node": ">=16.x.x"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
   }
 }
