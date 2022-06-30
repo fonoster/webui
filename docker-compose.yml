@@ -38,15 +38,13 @@ services:
     environment:
       - NEXTAUTH_URL
       - ALLOW_INSECURE
-      - ENDPOINT
-      - NEXTJS_URL
+      - APISERVER_ENDPOINT
       - GITHUB_CLIENT_ID
       - GITHUB_CLIENT_SECRET
       - AUTH_SECRET
       - JWT_SECRET
-      - ACCESS_KEY_ID
-      - ACCESS_KEY_SECRET
       - LOGS_TRANSPORT
+      - LOGS_LEVEL
     networks:
       - fonoster
     volumes:
