@@ -113,16 +113,16 @@ export const CallLogsBoard: AppPage = () => {
                     key={event.ref}
                     className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
                   >
-                    <td className="px-6 py-4 whitespace-nowrap font-medium text-white truncate max-w-[132px]">
+                    <td className="px-6 py-4 font-medium text-white truncate max-w-[132px]">
                       {event.ref}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 truncate min-w-[260px]">
+                    <td className="px-6 py-4 text-gray-300 truncate min-w-[260px]">
                       {new Date(event.timestamp).toUTCString()}
                     </td>
                     <td className="px-6 py-4 whitespace-normal text-gray-300 truncate max-w-[360px] min-w-[320px]">
                       {event.message}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 capitalize truncate">
+                    <td className="px-6 py-4 text-gray-300 capitalize truncate">
                       <Badge
                         dot
                         color={getStatus(event?.body?.status).color as any}
@@ -130,19 +130,19 @@ export const CallLogsBoard: AppPage = () => {
                         {getStatus(event?.body?.status).message}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 capitalize truncate">
+                    <td className="px-6 py-4 text-gray-300 capitalize truncate">
                       {`${event.body.direction ?? 'Unknown'}`}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 truncate">
+                    <td className="px-6 py-4 text-gray-300 truncate">
                       {`${event.body.from ?? 'Unknown'}`}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 truncate">
+                    <td className="px-6 py-4 text-gray-300 truncate">
                       {`${event.body.to ?? 'Unknown'}`}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 truncate">
+                    <td className="px-6 py-4 text-gray-300 truncate">
                       {`${event.body.callType ?? 'Unknown'}`}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 capitalize truncate">
+                    <td className="px-6 py-4 text-gray-300 capitalize truncate">
                       {`${event.body.duration ?? 'Unknown'}`}
                     </td>
                   </tr>

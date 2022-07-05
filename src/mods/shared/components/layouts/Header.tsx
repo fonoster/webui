@@ -10,21 +10,32 @@ import { currentProjectStorage } from '@/mods/projects/components/current-projec
 import { useTitle } from '@/mods/shared/hooks/useTitle'
 import { Title } from '@/ui'
 
+import { config } from '../../constants/config'
 import { classes } from '../../helpers/classes'
 import { Banner } from './Banner'
 import { Notifications } from './Notifications'
 
-const userNavigation = [
-  { name: 'Your Account', href: '/account' },
-  {
-    name: 'Sign out',
-    href: '#',
-    onClick: () => {
-      currentProjectStorage.destroy()
-      signOut()
-    },
+const userNavigation: {
+  name: string
+  href: string
+  onClick?: () => void
+}[] = [{ name: 'Your Account', href: '/account' }]
+
+if (config.BILLING_URL) {
+  userNavigation.push({
+    name: 'Billing',
+    href: config.BILLING_URL,
+  })
+}
+
+userNavigation.push({
+  name: 'Sign out',
+  href: '#',
+  onClick: () => {
+    currentProjectStorage.destroy()
+    signOut()
   },
-]
+})
 
 export const Header = () => {
   const { title, layout } = useTitle()
@@ -174,8 +185,8 @@ export const Header = () => {
           </>
         )}
       </Disclosure>
-      {layout === 'home' && (
-        <Banner message="Welcome to Fonoster Cloud. This service is in the beta phase for evaluation purposes and not for production use." />
+      {layout === 'home' && config.BANNER_ANNOUNCEMENT && (
+        <Banner message={config.BANNER_ANNOUNCEMENT} />
       )}
     </>
   )

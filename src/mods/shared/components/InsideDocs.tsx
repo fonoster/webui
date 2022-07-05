@@ -47,7 +47,7 @@ export const InsideDocs: React.FC<InsideDocsProps> = ({
       show={show}
     >
       <aside
-        className="hidden p-6 w-[29rem] overflow-x-hidden overflow-y-auto lg:block border-l"
+        className="sdk-docs hidden p-6 max-w-[24rem] 2xl:max-w-[29rem] overflow-x-hidden overflow-y-auto lg:block border-l"
         style={{ background: '#2E3138', borderColor: '#4F5358' }}
       >
         <Title level={3} className="mb-6">
@@ -80,10 +80,7 @@ export const InsideDocs: React.FC<InsideDocsProps> = ({
                   className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
                 >
                   {row.map((cell, idx) => (
-                    <td
-                      key={idx}
-                      className="px-6 py-4 whitespace-nowrap text-gray-300"
-                    >
+                    <td key={idx} className="px-6 py-4 text-gray-300">
                       {getCell(cell)}
                     </td>
                   ))}

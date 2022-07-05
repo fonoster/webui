@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import React, { Fragment } from 'react'
 
 import { CurrentProjectSelector } from '@/mods/projects/components/current-project'
+import { config } from '@/mods/shared/constants/config'
 import { classes } from '@/mods/shared/helpers/classes'
 import { Text, Title } from '@/ui'
 
@@ -136,7 +137,30 @@ export const Sidebar = () => {
             )}
           </div>
 
-          <div className="flex justify-center items-end flex-1 flex-shrink-0 w-full">
+          <div className="flex justify-end items-center flex-1 flex-shrink-0 w-full flex-col">
+            {config.FEEDBACK_URL && (
+              <a
+                className="text-center relative cursor-pointer group w-full p-4 px-8 mb-4 flex items-center hover:text-white text-gray-300"
+                target="_blank"
+                href={config.FEEDBACK_URL}
+                rel="noreferrer"
+              >
+                <span
+                  className="hidden pointer-events-none absolute top-2 right-2 text-gray-100 group-hover:block"
+                  aria-hidden="true"
+                >
+                  <svg
+                    className="h-3 w-3"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M20 4h1a1 1 0 00-1-1v1zm-1 12a1 1 0 102 0h-2zM8 3a1 1 0 000 2V3zM3.293 19.293a1 1 0 101.414 1.414l-1.414-1.414zM19 4v12h2V4h-2zm1-1H8v2h12V3zm-.707.293l-16 16 1.414 1.414 16-16-1.414-1.414z" />
+                  </svg>
+                </span>
+                Send Feedback
+              </a>
+            )}
             <Text>
               © {new Date().getFullYear()}, Fonoster. v{pkg.version}
             </Text>

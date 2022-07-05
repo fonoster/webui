@@ -337,3 +337,13 @@ table .thead--plans th {
 ::-webkit-scrollbar-thumb {
   @apply bg-gray-600;
 }
+
+/* @media screen and (min-width: 1524px) {
+  .sdk-docs {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 64px;
+    overflow: auto;
+  }
+} */

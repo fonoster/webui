@@ -5,6 +5,9 @@ type Config = {
     [key: string]: string
     APP_URL: string
     SENTRY_DSN: string
+    BILLING_URL: string
+    BANNER_ANNOUNCEMENT: string
+    FEEDBACK_URL: string
   }
 }
 

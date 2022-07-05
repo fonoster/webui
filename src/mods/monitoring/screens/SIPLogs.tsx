@@ -91,15 +91,15 @@ export const SIPLogsBoard: AppPage = () => {
                     key={event.ref}
                     className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
                   >
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 capitalize truncate">
+                    <td className="px-6 py-4 text-gray-300 capitalize truncate">
                       <Badge dot color={getLevel(event.level).color as any}>
                         {getLevel(event.level).message}
                       </Badge>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap font-medium text-white truncate max-w-[132px]">
+                    <td className="px-6 py-4 font-medium text-white truncate max-w-[132px]">
                       {event.ref}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300 truncate">
+                    <td className="px-6 py-4 text-gray-300 truncate">
                       {new Date(event.timestamp).toUTCString()}
                     </td>
                     <td className="px-6 py-4 whitespace-normal text-gray-300 truncate max-w-[360px] min-w-[320px]">

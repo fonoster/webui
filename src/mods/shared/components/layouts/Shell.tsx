@@ -13,7 +13,7 @@ interface Props {
 
 export const Shell: React.FC<Props> = ({ name, children }) => {
   const [isInsideDocsOpen, setInsideDocsOpen] = useState(false)
-  const { setTitle, removeGaps } = useTitle()
+  const { setTitle, removeGaps, setFullScreen } = useTitle()
 
   const data: ScreenDetails = useMemo(
     () => ({
@@ -25,7 +25,11 @@ export const Shell: React.FC<Props> = ({ name, children }) => {
   useLayoutEffect(() => {
     setTitle(data.title)
     removeGaps()
-  }, [setTitle, removeGaps, data])
+
+    if (data?.docs?.title) {
+      setFullScreen()
+    }
+  }, [setTitle, removeGaps, data, setFullScreen])
 
   return (
     <>

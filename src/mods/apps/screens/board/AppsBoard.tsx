@@ -90,19 +90,15 @@ export const AppsBoard: AppPage = () => {
                 key={app.ref}
                 className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
               >
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
-                  {app.ref}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {app.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                <td className="px-6 py-4 font-medium text-white">{app.ref}</td>
+                <td className="px-6 py-4 text-gray-300">{app.name}</td>
+                <td className="px-6 py-4 text-gray-300">
                   {app?.intentsEngineConfig?.projectId || 'N/A'}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                <td className="px-6 py-4 text-gray-300">
                   {app?.intentsEngineConfig?.welcomeIntentId || 'N/A'}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                <td className="px-6 py-4 text-gray-300">
                   {app?.speechConfig?.voice || 'N/A'}
                 </td>
                 <td className="px-6 py-4 text-right font-medium">

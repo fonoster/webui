@@ -157,61 +157,54 @@ export const CreationEditingDomain = () => {
             )}
           />
 
-          {hasNumbers && (
-            <>
-              <Controller
-                name="egressNumberRef"
-                control={control}
-                render={({ field: { name, onBlur, onChange, value } }) => (
-                  <Select
-                    className={hasNumbers ? 'mb-4' : 'mb-0'}
-                    label="Egress Number"
-                    placeholder="Choose a Egress Number"
-                    labelOptional="(Optional)"
-                    disabled={!hasNumbers || isLoading}
-                    error={
-                      errors?.egressNumberRef &&
-                      'You must enter a Egress Number.'
-                    }
-                    {...{
-                      name,
-                      onBlur,
-                      onChange,
-                      value,
-                    }}
-                  >
-                    <Select.Option value="">
-                      Choose a Egress Number
-                    </Select.Option>
-                    {numbers.map(({ ref, e164Number }) => (
-                      <Select.Option key={ref} value={ref}>
-                        {e164Number}
-                      </Select.Option>
-                    ))}
-                  </Select>
-                )}
+          <Controller
+            name="egressNumberRef"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: { name, onBlur, onChange, value } }) => (
+              <Select
+                className="mb-4"
+                label="Egress Number"
+                placeholder="Choose a Egress Number"
+                disabled={!hasNumbers || isLoading}
+                error={
+                  errors?.egressNumberRef && 'You must enter a Egress Number.'
+                }
+                {...{
+                  name,
+                  onBlur,
+                  onChange,
+                  value,
+                }}
+              >
+                <Select.Option value="">Choose a Egress Number</Select.Option>
+                {numbers.map(({ ref, e164Number }) => (
+                  <Select.Option key={ref} value={ref}>
+                    {e164Number}
+                  </Select.Option>
+                ))}
+              </Select>
+            )}
+          />
+
+          <Controller
+            name="egressRule"
+            control={control}
+            render={({ field: { name, onBlur, onChange, value } }) => (
+              <Input
+                className="mb-4"
+                label="Your Egress Rule"
+                placeholder="Type a rule (e.g .*)"
+                disabled={isLoading}
+                {...{
+                  name,
+                  onBlur,
+                  onChange,
+                  value,
+                }}
               />
-              <Controller
-                name="egressRule"
-                control={control}
-                render={({ field: { name, onBlur, onChange, value } }) => (
-                  <Input
-                    className="mb-4"
-                    label="Your Egress Rule"
-                    labelOptional="(Optional)"
-                    placeholder="Type a rule (e.g .*)"
-                    disabled={isLoading}
-                    {...{
-                      name,
-                      onBlur,
-                      onChange,
-                      value,
-                    }}
-                  />
-                )}
-              />
-            </>
-          )}
+            )}
+          />
         </>
       ) : (
         <Spinner />

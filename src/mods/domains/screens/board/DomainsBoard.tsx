@@ -90,22 +90,18 @@ export const DomainsBoard: AppPage = () => {
                 key={domain.ref}
                 className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
               >
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
+                <td className="px-6 py-4 font-medium text-white">
                   {domain.ref}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {domain.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {domain.domainUri}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                <td className="px-6 py-4 text-gray-300">{domain.name}</td>
+                <td className="px-6 py-4 text-gray-300">{domain.domainUri}</td>
+                <td className="px-6 py-4 text-gray-300">
                   {domain.egressRule || 'N/A'}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                <td className="px-6 py-4 text-gray-300">
                   {domain.egressNumberRef || 'N/A'}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-right font-medium">
+                <td className="px-6 py-4 text-right font-medium">
                   <div className="flex justify-end">
                     <Menu as="div" className="relative flex-shrink-0">
                       <div>

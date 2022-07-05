@@ -155,19 +155,13 @@ export const NumbersBoard: AppPage = () => {
                 key={num.ref}
                 className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
               >
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
-                  {num.ref}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {num.providerRef}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {num.e164Number}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                <td className="px-6 py-4 font-medium text-white">{num.ref}</td>
+                <td className="px-6 py-4 text-gray-300">{num.providerRef}</td>
+                <td className="px-6 py-4 text-gray-300">{num.e164Number}</td>
+                <td className="px-6 py-4 text-gray-300">
                   {num.ingressInfo?.webhook}
                 </td>
-                <td className="flex items-center px-6 py-4 text-right font-medium justify-end">
+                <td className="flex items-center px-6 py-4 whitespace-nowrap text-right font-medium justify-end">
                   <Button
                     size="small"
                     className="mr-4"

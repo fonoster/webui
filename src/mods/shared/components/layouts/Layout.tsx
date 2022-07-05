@@ -19,7 +19,7 @@ import { Sidebar } from './navigation'
 import { ResourceMenu } from './navigation/ResourceMenu'
 
 const Content: React.FC = ({ children }) => {
-  const { layout, showGaps } = useTitle()
+  const { layout, showGaps, isFullScreen } = useTitle()
 
   return layout === 'default' ? (
     <div className="h-full flex w-full">
@@ -33,7 +33,8 @@ const Content: React.FC = ({ children }) => {
           <main className="flex-1 overflow-y-auto">
             <section
               className={classes(
-                'relative max-w-7xl mx-auto min-w-0 flex-1 h-full flex flex-col lg:order-last',
+                'relative mx-auto min-w-0 flex-1 h-full flex flex-col lg:order-last',
+                !isFullScreen ? 'max-w-7xl' : '',
                 showGaps ? 'p-6' : 'p-0'
               )}
             >
@@ -50,7 +51,12 @@ const Content: React.FC = ({ children }) => {
 
         <div className="flex-1 flex items-stretch overflow-hidden">
           <main className="flex-1 overflow-y-auto">
-            <section className="relative max-w-7xl mx-auto p-6 min-w-0 flex-1 h-full flex flex-col lg:order-last">
+            <section
+              className={classes(
+                'relative mx-auto p-6 min-w-0 flex-1 h-full flex flex-col lg:order-last',
+                !isFullScreen ? 'max-w-7xl' : ''
+              )}
+            >
               {children}
             </section>
           </main>

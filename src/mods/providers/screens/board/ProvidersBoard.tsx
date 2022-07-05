@@ -90,19 +90,13 @@ export const ProvidersBoard: AppPage = () => {
                 key={provider.ref}
                 className={idx % 2 === 0 ? 'bg-gray-600' : 'bg-gray-700'}
               >
-                <td className="px-6 py-4 whitespace-nowrap font-medium text-white">
+                <td className="px-6 py-4 font-medium text-white">
                   {provider.ref}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {provider.name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {provider.username}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                  {provider.host}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                <td className="px-6 py-4 text-gray-300">{provider.name}</td>
+                <td className="px-6 py-4 text-gray-300">{provider.username}</td>
+                <td className="px-6 py-4 text-gray-300">{provider.host}</td>
+                <td className="px-6 py-4 text-gray-300">
                   {provider.transport}
                 </td>
                 <td className="px-6 py-4 text-right font-medium">
