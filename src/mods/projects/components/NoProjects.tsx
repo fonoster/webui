@@ -2,6 +2,7 @@ import { ButtonProps } from '@supabase/ui/dist/cjs/components/Button/Button'
 import { signOut } from 'next-auth/react'
 import React from 'react'
 
+import { userStore } from '@/mods/auth/hooks/useLoggedIn'
 import { currentProjectStorage } from '@/mods/projects/components/current-project'
 import { Empty } from '@/ui'
 
@@ -24,6 +25,7 @@ export const NoProjects: React.FC<{ buttonProps?: ButtonProps }> = ({
       cancelButtonProps={{
         text: 'Sign Out',
         onClick: () => {
+          userStore.destroy()
           currentProjectStorage.destroy()
           signOut()
         },

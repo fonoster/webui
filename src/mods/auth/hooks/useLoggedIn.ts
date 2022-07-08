@@ -1,6 +1,7 @@
 import { useSession } from 'next-auth/react'
 import { useMemo } from 'react'
 
+import { Storage } from '@/mods/shared/helpers/Storage'
 import { useGetUserLogged } from '@/mods/users/hooks/useGetUserLogged'
 
 export enum SESSION_STATUS {
@@ -8,6 +9,8 @@ export enum SESSION_STATUS {
   AUTH = 'authenticated',
   UNAUTH = 'unauthenticated',
 }
+
+export const userStore = new Storage('fonoster.user')
 
 export const useLoggedIn = () => {
   const { data: session, status } = useSession()
@@ -32,7 +35,7 @@ export const useLoggedIn = () => {
     enabled: isAuthenticated,
   })
 
-  return {
+  const data = {
     user: {
       ...session?.user,
       ...user,
@@ -43,4 +46,17 @@ export const useLoggedIn = () => {
     isAuthenticated,
     isUnauthenticated,
   }
+
+  if (isAuthenticated) {
+    userStore.set(
+      JSON.stringify({
+        accessKeyId: data.user.accessKeyId,
+        accessKeySecret: data.user.accessKeySecret,
+      })
+    )
+  }
+
+  if (isUnauthenticated) userStore.destroy()
+
+  return data
 }

@@ -5,7 +5,7 @@ import { signOut } from 'next-auth/react'
 import React from 'react'
 import { Fragment } from 'react'
 
-import { useLoggedIn } from '@/mods/auth/hooks/useLoggedIn'
+import { useLoggedIn, userStore } from '@/mods/auth/hooks/useLoggedIn'
 import { currentProjectStorage } from '@/mods/projects/components/current-project'
 import { useTitle } from '@/mods/shared/hooks/useTitle'
 import { Title } from '@/ui'
@@ -32,6 +32,7 @@ userNavigation.push({
   name: 'Sign out',
   href: '#',
   onClick: () => {
+    userStore.destroy()
     currentProjectStorage.destroy()
     signOut()
   },
